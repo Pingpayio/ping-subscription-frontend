@@ -4,7 +4,6 @@ import Index from "@/pages/Index";
 import Dashboard from "@/pages/Dashboard";
 import Checkout from "@/pages/Checkout";
 import Settings from "@/pages/Settings";
-import Subscriptions from "@/pages/Subscriptions";
 import NotFound from "@/pages/NotFound";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -16,7 +15,6 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/subscriptions" element={<Subscriptions />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
       </Routes>
