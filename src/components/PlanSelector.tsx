@@ -3,17 +3,22 @@ import { useState } from "react";
 import { SubscriptionPlan } from "@/types/subscription";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PricingCard } from "@/components/PricingCard";
-import { subscriptionPlans, yearlySubscriptionPlans } from "@/data/mockData";
+import { 
+  dailySubscriptionPlans, 
+  weeklySubscriptionPlans, 
+  subscriptionPlans, 
+  yearlySubscriptionPlans 
+} from "@/data/mockData";
 
 interface PlanSelectorProps {
   onSelectPlan: (plan: SubscriptionPlan) => void;
 }
 
 export function PlanSelector({ onSelectPlan }: PlanSelectorProps) {
-  const [intervalType, setIntervalType] = useState<"monthly" | "yearly">("monthly");
+  const [intervalType, setIntervalType] = useState<"daily" | "weekly" | "monthly" | "yearly">("monthly");
   
   const handleIntervalChange = (value: string) => {
-    setIntervalType(value as "monthly" | "yearly");
+    setIntervalType(value as "daily" | "weekly" | "monthly" | "yearly");
   };
 
   return (
@@ -31,7 +36,9 @@ export function PlanSelector({ onSelectPlan }: PlanSelectorProps) {
         onValueChange={handleIntervalChange}
       >
         <div className="flex justify-center">
-          <TabsList className="grid w-64 grid-cols-2">
+          <TabsList className="grid w-full max-w-md grid-cols-4">
+            <TabsTrigger value="daily">Daily</TabsTrigger>
+            <TabsTrigger value="weekly">Weekly</TabsTrigger>
             <TabsTrigger value="monthly">Monthly</TabsTrigger>
             <TabsTrigger value="yearly">
               Yearly
@@ -41,6 +48,22 @@ export function PlanSelector({ onSelectPlan }: PlanSelectorProps) {
             </TabsTrigger>
           </TabsList>
         </div>
+        
+        <TabsContent value="daily" className="mt-6">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {dailySubscriptionPlans.map((plan) => (
+              <PricingCard key={plan.id} plan={plan} onSelectPlan={onSelectPlan} />
+            ))}
+          </div>
+        </TabsContent>
+        
+        <TabsContent value="weekly" className="mt-6">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {weeklySubscriptionPlans.map((plan) => (
+              <PricingCard key={plan.id} plan={plan} onSelectPlan={onSelectPlan} />
+            ))}
+          </div>
+        </TabsContent>
         
         <TabsContent value="monthly" className="mt-6">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

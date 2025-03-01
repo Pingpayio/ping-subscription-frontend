@@ -4,7 +4,7 @@ export interface SubscriptionPlan {
   name: string;
   description: string;
   price: number;
-  interval: 'monthly' | 'yearly';
+  interval: 'daily' | 'weekly' | 'monthly' | 'yearly';
   features: string[];
   isPopular?: boolean;
 }
@@ -34,6 +34,7 @@ export interface UserSubscription {
   currentPeriodEnd: string;
   cancelAtPeriodEnd: boolean;
   startDate: string;
+  maxDuration?: number; // in days
 }
 
 export interface User {

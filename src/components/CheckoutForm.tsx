@@ -1,6 +1,7 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { User, Mail, Wallet, CreditCard, CheckIcon } from "lucide-react";
+import { User, Mail, Wallet, CreditCard, CheckIcon, Calendar } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -8,7 +9,9 @@ import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { SubscriptionPlan } from "@/types/subscription";
 import { toast } from "sonner";
-import { format, addMonths, addYears } from "date-fns";
+import { format, addDays, addWeeks, addMonths, addYears } from "date-fns";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { getNextBillingDate } from "@/data/mockData";
 
 interface CheckoutFormProps {
   selectedPlan: SubscriptionPlan;
@@ -20,6 +23,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
   const [loading, setLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<"crypto" | "card" | null>(null);
   const [showCardForm, setShowCardForm] = useState(false);
+  const [maxDuration, setMaxDuration] = useState<string>("no-limit");
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,9 +38,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
   };
   
   const today = new Date();
-  const nextBillingDate = selectedPlan.interval === "monthly" 
-    ? format(addMonths(today, 1), "MMMM d, yyyy")
-    : format(addYears(today, 1), "MMMM d, yyyy");
+  const nextBillingDate = getNextBillingDate(selectedPlan.interval, today);
   
   const handleConnectWallet = () => {
     setPaymentMethod("crypto");
@@ -46,6 +48,64 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
   const handleCardPayment = () => {
     setPaymentMethod("card");
     setShowCardForm(true);
+  };
+  
+  // Generate max duration options based on the selected plan interval
+  const getDurationOptions = () => {
+    const options = [
+      { value: "no-limit", label: "No Limit" }
+    ];
+    
+    if (selectedPlan.interval === "daily") {
+      options.push(
+        { value: "7", label: "7 days" },
+        { value: "14", label: "14 days" },
+        { value: "30", label: "30 days" },
+        { value: "90", label: "90 days" }
+      );
+    } else if (selectedPlan.interval === "weekly") {
+      options.push(
+        { value: "4", label: "4 weeks" },
+        { value: "12", label: "12 weeks" },
+        { value: "24", label: "24 weeks" },
+        { value: "52", label: "52 weeks" }
+      );
+    } else if (selectedPlan.interval === "monthly") {
+      options.push(
+        { value: "3", label: "3 months" },
+        { value: "6", label: "6 months" },
+        { value: "9", label: "9 months" },
+        { value: "12", label: "12 months" }
+      );
+    } else if (selectedPlan.interval === "yearly") {
+      options.push(
+        { value: "2", label: "2 years" },
+        { value: "3", label: "3 years" },
+        { value: "5", label: "5 years" }
+      );
+    }
+    
+    return options;
+  };
+  
+  // Calculate end date based on max duration
+  const getMaxDurationEndDate = () => {
+    if (maxDuration === "no-limit") return "No end date";
+    
+    const durationNum = parseInt(maxDuration);
+    let endDate;
+    
+    if (selectedPlan.interval === "daily") {
+      endDate = addDays(today, durationNum);
+    } else if (selectedPlan.interval === "weekly") {
+      endDate = addWeeks(today, durationNum);
+    } else if (selectedPlan.interval === "monthly") {
+      endDate = addMonths(today, durationNum);
+    } else if (selectedPlan.interval === "yearly") {
+      endDate = addYears(today, durationNum);
+    }
+    
+    return endDate ? format(endDate, "MMMM d, yyyy") : "Unknown";
   };
   
   return (
@@ -105,6 +165,40 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                   required 
                 />
               </div>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <h3 className="text-xl font-semibold">Subscription Duration</h3>
+              <Separator />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="max-duration">Maximum Subscription Duration</Label>
+              <div className="relative">
+                <Calendar className="absolute left-3 top-3 h-4 w-4 text-muted-foreground pointer-events-none" />
+                <Select 
+                  value={maxDuration} 
+                  onValueChange={setMaxDuration}
+                >
+                  <SelectTrigger id="max-duration" className="pl-10">
+                    <SelectValue placeholder="Select maximum duration" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {getDurationOptions().map(option => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              {maxDuration !== "no-limit" && (
+                <p className="text-sm text-muted-foreground mt-1">
+                  Your subscription will automatically end on {getMaxDurationEndDate()}.
+                </p>
+              )}
             </div>
           </div>
           
@@ -297,6 +391,19 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                   <p className="text-sm text-muted-foreground">/{selectedPlan.interval}</p>
                 </div>
               </div>
+              
+              {maxDuration !== "no-limit" && (
+                <div className="rounded-lg bg-muted/30 p-3">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-medium">Maximum Duration:</p>
+                    <p className="text-sm">{getDurationOptions().find(opt => opt.value === maxDuration)?.label}</p>
+                  </div>
+                  <div className="flex items-center justify-between mt-1">
+                    <p className="text-sm font-medium">End Date:</p>
+                    <p className="text-sm">{getMaxDurationEndDate()}</p>
+                  </div>
+                </div>
+              )}
               
               <Separator />
               

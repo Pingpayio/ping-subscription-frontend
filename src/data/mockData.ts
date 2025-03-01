@@ -6,7 +6,101 @@ import {
   PaymentHistory, 
   UserSubscription 
 } from "@/types/subscription";
-import { format, addMonths, addYears } from "date-fns";
+import { format, addDays, addWeeks, addMonths, addYears } from "date-fns";
+
+export const dailySubscriptionPlans: SubscriptionPlan[] = [
+  {
+    id: "basic-daily",
+    name: "Basic",
+    description: "Perfect for short-term personal projects",
+    price: 0.99,
+    interval: "daily",
+    features: [
+      "1 Project",
+      "5GB Storage",
+      "Basic Analytics",
+      "Email Support"
+    ]
+  },
+  {
+    id: "pro-daily",
+    name: "Professional",
+    description: "Ideal for short-term professional projects",
+    price: 1.99,
+    interval: "daily",
+    features: [
+      "5 Projects",
+      "20GB Storage",
+      "Advanced Analytics",
+      "Priority Support",
+      "Team Collaboration"
+    ],
+    isPopular: true
+  },
+  {
+    id: "business-daily",
+    name: "Business",
+    description: "For short-term organizational needs",
+    price: 4.99,
+    interval: "daily",
+    features: [
+      "Unlimited Projects",
+      "100GB Storage",
+      "Premium Analytics",
+      "24/7 Support",
+      "Team Collaboration",
+      "Custom Integrations",
+      "Dedicated Account Manager"
+    ]
+  }
+];
+
+export const weeklySubscriptionPlans: SubscriptionPlan[] = [
+  {
+    id: "basic-weekly",
+    name: "Basic",
+    description: "Perfect for weekly personal projects",
+    price: 4.99,
+    interval: "weekly",
+    features: [
+      "1 Project",
+      "5GB Storage",
+      "Basic Analytics",
+      "Email Support"
+    ]
+  },
+  {
+    id: "pro-weekly",
+    name: "Professional",
+    description: "Ideal for weekly professional work",
+    price: 9.99,
+    interval: "weekly",
+    features: [
+      "5 Projects",
+      "20GB Storage",
+      "Advanced Analytics",
+      "Priority Support",
+      "Team Collaboration"
+    ],
+    isPopular: true
+  },
+  {
+    id: "business-weekly",
+    name: "Business",
+    description: "For weekly organizational needs",
+    price: 24.99,
+    interval: "weekly",
+    features: [
+      "Unlimited Projects",
+      "100GB Storage",
+      "Premium Analytics",
+      "24/7 Support",
+      "Team Collaboration",
+      "Custom Integrations",
+      "Dedicated Account Manager"
+    ]
+  }
+];
 
 export const subscriptionPlans: SubscriptionPlan[] = [
   {
@@ -62,7 +156,12 @@ export const yearlySubscriptionPlans: SubscriptionPlan[] = subscriptionPlans.map
   price: Math.round(plan.price * 10 * 12) / 10 * 0.8, // 20% discount for yearly
 }));
 
-export const allPlans = [...subscriptionPlans, ...yearlySubscriptionPlans];
+export const allPlans = [
+  ...dailySubscriptionPlans, 
+  ...weeklySubscriptionPlans, 
+  ...subscriptionPlans, 
+  ...yearlySubscriptionPlans
+];
 
 const today = new Date();
 
@@ -126,4 +225,19 @@ export const mockUser: User = {
 
 export function getSubscriptionPlan(planId: string): SubscriptionPlan | undefined {
   return allPlans.find(plan => plan.id === planId);
+}
+
+export function getNextBillingDate(interval: 'daily' | 'weekly' | 'monthly' | 'yearly', startDate: Date = new Date()): string {
+  switch (interval) {
+    case 'daily':
+      return format(addDays(startDate, 1), 'MMMM d, yyyy');
+    case 'weekly':
+      return format(addWeeks(startDate, 1), 'MMMM d, yyyy');
+    case 'monthly':
+      return format(addMonths(startDate, 1), 'MMMM d, yyyy');
+    case 'yearly':
+      return format(addYears(startDate, 1), 'MMMM d, yyyy');
+    default:
+      return format(addMonths(startDate, 1), 'MMMM d, yyyy');
+  }
 }
