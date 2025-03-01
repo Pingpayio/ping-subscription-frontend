@@ -39,21 +39,21 @@ const Dashboard = () => {
                 <p className="text-sm text-muted-foreground">Manage your account settings</p>
               </div>
               <div className="mt-4 grid gap-4">
-                <div className="rounded-lg border p-4 hover-lift">
+                <div className="rounded-[4px] border p-4 hover-lift">
                   <h3 className="font-medium">Billing Information</h3>
                   <p className="text-sm text-muted-foreground mt-1">Update your billing details and payment methods</p>
                   <a href="/dashboard/settings" className="text-sm text-primary hover:underline mt-2 inline-block">
                     Manage Billing →
                   </a>
                 </div>
-                <div className="rounded-lg border p-4 hover-lift">
+                <div className="rounded-[4px] border p-4 hover-lift">
                   <h3 className="font-medium">Account Settings</h3>
                   <p className="text-sm text-muted-foreground mt-1">Update your account preferences and profile information</p>
                   <a href="/dashboard/settings" className="text-sm text-primary hover:underline mt-2 inline-block">
                     Manage Account →
                   </a>
                 </div>
-                <div className="rounded-lg border p-4 hover-lift">
+                <div className="rounded-[4px] border p-4 hover-lift">
                   <h3 className="font-medium">Support</h3>
                   <p className="text-sm text-muted-foreground mt-1">Get help with your subscription or account</p>
                   <a href="#" className="text-sm text-primary hover:underline mt-2 inline-block">

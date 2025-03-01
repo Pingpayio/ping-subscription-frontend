@@ -74,14 +74,14 @@ export function PaymentMethodCard({
     >
       {paymentMethod.isDefault && (
         <div className="absolute right-2 top-2 z-10">
-          <span className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+          <span className="inline-flex items-center rounded-[4px] bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
             Default
           </span>
         </div>
       )}
       <CardHeader className="p-6">
         <div className="flex items-center space-x-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-secondary">
+          <div className="flex h-12 w-12 items-center justify-center rounded-[4px] bg-secondary">
             {getIcon()}
           </div>
           <div>
