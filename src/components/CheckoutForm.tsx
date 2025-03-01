@@ -1,7 +1,6 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CreditCard, Calendar, Check, User, Mail, Lock } from "lucide-react";
+import { User, Mail, Wallet, CreditCard } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -9,7 +8,6 @@ import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { SubscriptionPlan } from "@/types/subscription";
 import { toast } from "sonner";
-import { cn } from "@/lib/utils";
 import { format, addMonths, addYears } from "date-fns";
 
 interface CheckoutFormProps {
@@ -20,6 +18,8 @@ interface CheckoutFormProps {
 export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<"crypto" | "card" | null>(null);
+  const [showCardForm, setShowCardForm] = useState(false);
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,6 +37,16 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
   const nextBillingDate = selectedPlan.interval === "monthly" 
     ? format(addMonths(today, 1), "MMMM d, yyyy")
     : format(addYears(today, 1), "MMMM d, yyyy");
+  
+  const handleConnectWallet = () => {
+    setPaymentMethod("crypto");
+    toast.success("Wallet connected successfully!");
+  };
+  
+  const handleCardPayment = () => {
+    setPaymentMethod("card");
+    setShowCardForm(true);
+  };
   
   return (
     <div className="grid gap-10 lg:grid-cols-2">
@@ -100,59 +110,128 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
           
           <div className="space-y-4">
             <div className="space-y-2">
-              <h3 className="text-xl font-semibold">Payment Details</h3>
+              <h3 className="text-xl font-semibold">Payment Method</h3>
               <Separator />
             </div>
             
-            <div className="space-y-2">
-              <Label htmlFor="card-number">Card Number</Label>
-              <div className="relative">
-                <CreditCard className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input 
-                  id="card-number" 
-                  className="pl-10" 
-                  placeholder="1234 5678 9012 3456" 
-                  required 
-                />
-              </div>
-            </div>
-            
-            <div className="grid gap-4 sm:grid-cols-3">
-              <div className="space-y-2">
-                <Label htmlFor="expiry">Expiry Date</Label>
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input 
-                    id="expiry" 
-                    className="pl-10" 
-                    placeholder="MM/YY" 
-                    required 
-                  />
-                </div>
-              </div>
+            <div className="flex flex-col gap-4">
+              {!paymentMethod && (
+                <>
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    className="flex justify-between items-center h-auto p-4"
+                    onClick={handleConnectWallet}
+                  >
+                    <div className="flex items-center">
+                      <Wallet className="mr-2 h-5 w-5" />
+                      <div className="text-left">
+                        <p className="font-medium">Connect Crypto Wallet</p>
+                        <p className="text-sm text-muted-foreground">Pay with ETH, BTC, or other cryptocurrencies</p>
+                      </div>
+                    </div>
+                  </Button>
+                  
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    className="flex justify-between items-center h-auto p-4"
+                    onClick={handleCardPayment}
+                  >
+                    <div className="flex items-center">
+                      <CreditCard className="mr-2 h-5 w-5" />
+                      <div className="text-left">
+                        <p className="font-medium">Credit Card</p>
+                        <p className="text-sm text-muted-foreground">Pay with Visa, Mastercard, or American Express</p>
+                      </div>
+                    </div>
+                  </Button>
+                </>
+              )}
               
-              <div className="space-y-2">
-                <Label htmlFor="cvc">CVC</Label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input 
-                    id="cvc" 
-                    className="pl-10" 
-                    placeholder="123" 
-                    required 
-                  />
+              {paymentMethod === "crypto" && (
+                <div className="p-4 border rounded-md">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Wallet className="h-5 w-5 text-green-500" />
+                    <span className="font-medium">Wallet Connected</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-3">Your crypto wallet has been connected successfully.</p>
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => setPaymentMethod(null)}
+                  >
+                    Change
+                  </Button>
                 </div>
-              </div>
+              )}
               
-              <div className="space-y-2">
-                <Label htmlFor="zip">Zip Code</Label>
-                <Input 
-                  id="zip" 
-                  className="pl-3" 
-                  placeholder="12345" 
-                  required 
-                />
-              </div>
+              {paymentMethod === "card" && showCardForm && (
+                <div className="p-4 border rounded-md space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <CreditCard className="h-5 w-5 text-blue-500" />
+                      <span className="font-medium">Credit Card</span>
+                    </div>
+                    <Button 
+                      type="button" 
+                      variant="ghost" 
+                      size="sm" 
+                      onClick={() => {
+                        setPaymentMethod(null);
+                        setShowCardForm(false);
+                      }}
+                    >
+                      Change
+                    </Button>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="card-number">Card Number</Label>
+                      <Input 
+                        id="card-number" 
+                        className="pl-3" 
+                        placeholder="1234 5678 9012 3456" 
+                        required 
+                      />
+                    </div>
+                    
+                    <div className="grid gap-4 sm:grid-cols-3">
+                      <div className="space-y-2">
+                        <Label htmlFor="expiry">Expiry Date</Label>
+                        <Input 
+                          id="expiry" 
+                          className="pl-3" 
+                          placeholder="MM/YY" 
+                          required 
+                        />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="cvc">CVC</Label>
+                        <Input 
+                          id="cvc" 
+                          className="pl-3" 
+                          placeholder="123" 
+                          required 
+                        />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="zip">Zip Code</Label>
+                        <Input 
+                          id="zip" 
+                          className="pl-3" 
+                          placeholder="12345" 
+                          required 
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           
@@ -168,7 +247,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
             <Button 
               type="submit" 
               className="sm:flex-1" 
-              disabled={loading}
+              disabled={loading || !paymentMethod}
             >
               {loading ? (
                 <>
