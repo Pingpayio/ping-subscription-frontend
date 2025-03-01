@@ -17,16 +17,18 @@ const Checkout = () => {
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 md:px-6 md:py-12 lg:py-16 min-h-screen">
-      <div className="mb-8 flex items-center">
-        <Link to="/">
-          <Button variant="ghost" size="sm" className="gap-1">
-            <ArrowLeft className="h-4 w-4" />
-            Back
-          </Button>
-        </Link>
+    <div className="min-h-screen bg-background">
+      <div className="mx-auto max-w-7xl px-4 py-10 md:px-6 md:py-12 lg:py-16">
+        <div className="mb-8 flex items-center">
+          <Link to="/">
+            <Button variant="ghost" size="sm" className="gap-1 text-foreground">
+              <ArrowLeft className="h-4 w-4" />
+              Back
+            </Button>
+          </Link>
+        </div>
+        <CheckoutForm selectedPlan={selectedPlan} onBack={handleBack} />
       </div>
-      <CheckoutForm selectedPlan={selectedPlan} onBack={handleBack} />
     </div>
   );
 };

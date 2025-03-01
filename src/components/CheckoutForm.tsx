@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User, Mail, Wallet, CreditCard, CheckIcon, Calendar } from "lucide-react";
@@ -119,7 +120,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
           <div className="space-y-4">
             <div className="space-y-2">
               <h3 className="text-xl font-semibold">Personal Information</h3>
-              <Separator />
+              <Separator className="bg-muted/50" />
             </div>
             
             <div className="grid gap-4 sm:grid-cols-2">
@@ -129,7 +130,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                   <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input 
                     id="first-name" 
-                    className="pl-10" 
+                    className="pl-10 bg-secondary/50 border-secondary" 
                     placeholder="John" 
                     required 
                   />
@@ -142,7 +143,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                   <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                   <Input 
                     id="last-name" 
-                    className="pl-10" 
+                    className="pl-10 bg-secondary/50 border-secondary" 
                     placeholder="Doe" 
                     required 
                   />
@@ -157,7 +158,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                 <Input 
                   id="email" 
                   type="email" 
-                  className="pl-10" 
+                  className="pl-10 bg-secondary/50 border-secondary" 
                   placeholder="john.doe@example.com" 
                   required 
                 />
@@ -168,7 +169,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
           <div className="space-y-4">
             <div className="space-y-2">
               <h3 className="text-xl font-semibold">Subscription Duration</h3>
-              <Separator />
+              <Separator className="bg-muted/50" />
             </div>
             
             <div className="space-y-2">
@@ -179,7 +180,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                   value={maxDuration} 
                   onValueChange={setMaxDuration}
                 >
-                  <SelectTrigger id="max-duration" className="pl-10">
+                  <SelectTrigger id="max-duration" className="pl-10 bg-secondary/50 border-secondary">
                     <SelectValue placeholder="Select maximum duration" />
                   </SelectTrigger>
                   <SelectContent>
@@ -202,7 +203,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
           <div className="space-y-4">
             <div className="space-y-2">
               <h3 className="text-xl font-semibold">Payment Method</h3>
-              <Separator />
+              <Separator className="bg-muted/50" />
             </div>
             
             <div className="flex flex-col gap-4">
@@ -211,7 +212,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                   <Button 
                     type="button" 
                     variant="outline" 
-                    className="flex justify-between items-center h-auto p-4"
+                    className="flex justify-between items-center h-auto p-4 border-secondary bg-secondary/50 hover:bg-accent/10"
                     onClick={handleConnectWallet}
                   >
                     <div className="flex items-center">
@@ -225,7 +226,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                   <Button 
                     type="button" 
                     variant="outline" 
-                    className="flex justify-between items-center h-auto p-4"
+                    className="flex justify-between items-center h-auto p-4 border-secondary bg-secondary/50 hover:bg-accent/10"
                     onClick={handleCardPayment}
                   >
                     <div className="flex items-center">
@@ -239,9 +240,9 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
               )}
               
               {paymentMethod === "crypto" && (
-                <div className="p-4 border rounded-md">
+                <div className="p-4 border border-secondary rounded-md bg-secondary/50">
                   <div className="flex items-center gap-2 mb-2">
-                    <Wallet className="h-5 w-5 text-green-500" />
+                    <Wallet className="h-5 w-5 text-primary" />
                     <span className="font-medium">Wallet Connected</span>
                   </div>
                   <p className="text-sm text-muted-foreground mb-3">Your crypto wallet has been connected successfully.</p>
@@ -250,6 +251,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                     variant="outline" 
                     size="sm" 
                     onClick={() => setPaymentMethod(null)}
+                    className="border-secondary hover:bg-accent/10"
                   >
                     Change
                   </Button>
@@ -257,10 +259,10 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
               )}
               
               {paymentMethod === "card" && showCardForm && (
-                <div className="p-4 border rounded-md space-y-4">
+                <div className="p-4 border border-secondary rounded-md bg-secondary/50 space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <CreditCard className="h-5 w-5 text-blue-500" />
+                      <CreditCard className="h-5 w-5 text-primary" />
                       <span className="font-medium">Credit Card</span>
                     </div>
                     <Button 
@@ -271,6 +273,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                         setPaymentMethod(null);
                         setShowCardForm(false);
                       }}
+                      className="hover:bg-accent/10"
                     >
                       Change
                     </Button>
@@ -281,7 +284,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                       <Label htmlFor="card-number">Card Number</Label>
                       <Input 
                         id="card-number" 
-                        className="pl-3" 
+                        className="pl-3 bg-secondary/70 border-secondary" 
                         placeholder="1234 5678 9012 3456" 
                         required 
                       />
@@ -292,7 +295,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                         <Label htmlFor="expiry">Expiry Date</Label>
                         <Input 
                           id="expiry" 
-                          className="pl-3" 
+                          className="pl-3 bg-secondary/70 border-secondary" 
                           placeholder="MM/YY" 
                           required 
                         />
@@ -302,7 +305,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                         <Label htmlFor="cvc">CVC</Label>
                         <Input 
                           id="cvc" 
-                          className="pl-3" 
+                          className="pl-3 bg-secondary/70 border-secondary" 
                           placeholder="123" 
                           required 
                         />
@@ -312,7 +315,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                         <Label htmlFor="zip">Zip Code</Label>
                         <Input 
                           id="zip" 
-                          className="pl-3" 
+                          className="pl-3 bg-secondary/70 border-secondary" 
                           placeholder="12345" 
                           required 
                         />
@@ -328,14 +331,14 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
             <Button 
               type="button" 
               variant="outline" 
-              className="sm:flex-1" 
+              className="sm:flex-1 border-secondary hover:bg-accent/10" 
               onClick={onBack}
             >
-              Back
+              Cancel
             </Button>
             <Button 
               type="submit" 
-              className="sm:flex-1" 
+              className="sm:flex-1 bg-primary hover:bg-primary/90" 
               disabled={loading || !paymentMethod}
             >
               {loading ? (
@@ -367,8 +370,8 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
       </div>
       
       <div className="lg:sticky lg:top-20 lg:self-start">
-        <Card className="overflow-hidden">
-          <CardHeader className="bg-muted/50 p-6">
+        <Card className="overflow-hidden border-secondary bg-secondary/30">
+          <CardHeader className="bg-muted/20 p-6">
             <CardTitle>Order Summary</CardTitle>
             <CardDescription>Review your subscription details</CardDescription>
           </CardHeader>
@@ -388,7 +391,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
               </div>
               
               {maxDuration !== "no-limit" && (
-                <div className="rounded-lg bg-muted/30 p-3">
+                <div className="rounded-lg bg-secondary/50 p-3">
                   <div className="flex items-center justify-between">
                     <p className="text-sm font-medium">Maximum Duration:</p>
                     <p className="text-sm">{getDurationOptions().find(opt => opt.value === maxDuration)?.label}</p>
@@ -400,21 +403,21 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                 </div>
               )}
               
-              <Separator />
+              <Separator className="bg-muted/50" />
               
               <div className="space-y-2">
                 <p className="font-medium">What's included:</p>
                 <ul className="space-y-2">
                   {selectedPlan.features.map((feature) => (
                     <li key={feature} className="flex items-center">
-                      <CheckIcon className="mr-2 h-4 w-4 text-green-500" />
+                      <CheckIcon className="mr-2 h-4 w-4 text-primary" />
                       <span className="text-sm">{feature}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               
-              <Separator />
+              <Separator className="bg-muted/50" />
               
               <div className="space-y-1">
                 <div className="flex justify-between">
@@ -431,17 +434,16 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                 </div>
               </div>
               
-              <div className="rounded-lg bg-muted/50 p-4 text-sm">
+              <div className="rounded-lg bg-secondary/50 p-4 text-sm">
                 <p className="font-medium">Subscription details:</p>
                 <ul className="mt-2 space-y-1 text-muted-foreground">
                   <li>Next billing date: {nextBillingDate}</li>
-                  <li>14-day free trial included</li>
                   <li>Cancel anytime, no questions asked</li>
                 </ul>
               </div>
             </div>
           </CardContent>
-          <CardFooter className="bg-muted/20 p-6 pt-0">
+          <CardFooter className="bg-muted/10 p-6 pt-0">
             <div className="text-sm text-muted-foreground">
               By completing this purchase, you agree to our Terms of Service and Privacy Policy.
             </div>
