@@ -6,7 +6,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Checkout from "./pages/Checkout";
 import Dashboard from "./pages/Dashboard";
-import Subscriptions from "./pages/Subscriptions";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
@@ -23,7 +22,6 @@ const App = () => (
           <Route path="/" element={<Navigate to="/checkout" replace />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/subscriptions" element={<Subscriptions />} />
           <Route path="/dashboard/settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

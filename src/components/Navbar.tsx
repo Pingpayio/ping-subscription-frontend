@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, CreditCard, Settings, Menu, X } from "lucide-react";
+import { LayoutDashboard, Settings, Menu, X } from "lucide-react";
 
 export function Navbar() {
   const location = useLocation();
@@ -14,11 +14,6 @@ export function Navbar() {
       name: "Dashboard",
       path: "/dashboard",
       icon: <LayoutDashboard className="mr-2 h-4 w-4" />,
-    },
-    {
-      name: "Subscriptions",
-      path: "/dashboard/subscriptions",
-      icon: <CreditCard className="mr-2 h-4 w-4" />,
     },
     {
       name: "Settings",
