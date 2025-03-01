@@ -76,7 +76,7 @@ const Index = () => {
       {/* Simple Footer */}
       <footer className="border-t bg-background px-4 py-4">
         <div className="mx-auto max-w-7xl text-center text-sm text-muted-foreground">
-          © 2023 Subscription Haven. All rights reserved.
+          {/* Copyright removed */}
         </div>
       </footer>
     </div>
