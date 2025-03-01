@@ -38,15 +38,15 @@ const Index = () => {
       <section className="flex flex-1 items-center justify-center bg-background px-4 py-12 md:py-24 lg:py-32">
         <div className="mx-auto max-w-5xl space-y-10 text-center">
           <div className="space-y-4">
-            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
+            <h1 className="animate-fadeIn text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
               Simplified Subscription Management
             </h1>
-            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+            <p className="animate-fadeIn animation-delay-100 mx-auto max-w-[700px] text-muted-foreground md:text-xl">
               Everything you need to manage your subscription experience in one beautiful, intuitive platform.
             </p>
           </div>
 
-          <div className="mx-auto flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+          <div className="animate-fadeIn animation-delay-200 mx-auto flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
             <Link to="/checkout" className="w-full sm:w-auto">
               <Button 
                 size="lg" 
@@ -65,7 +65,7 @@ const Index = () => {
             </Link>
           </div>
 
-          <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-4 md:gap-8">
+          <div className="animate-fadeIn animation-delay-300 mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-4 md:gap-8">
             {['Seamless Management', 'Easy Billing', 'Cancel Anytime', '24/7 Support'].map((feature) => (
               <div key={feature} className="flex items-center rounded-full bg-muted px-3 py-1">
                 <Check className="mr-1 h-4 w-4 text-primary" />
@@ -92,7 +92,9 @@ const Index = () => {
             {subscriptionPlans.map((plan, i) => (
               <div 
                 key={plan.id} 
-                className={`rounded-xl border bg-card p-6 shadow-sm hover:shadow-md transition-shadow`}
+                className={`animate-fadeIn hover-lift rounded-xl border bg-card p-6 shadow-sm ${
+                  i === 0 ? 'animation-delay-100' : i === 1 ? 'animation-delay-200' : 'animation-delay-300'
+                }`}
               >
                 <div className="space-y-4">
                   <h3 className="text-2xl font-bold">{plan.name}</h3>
