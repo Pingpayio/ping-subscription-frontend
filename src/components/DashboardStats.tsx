@@ -9,13 +9,12 @@ import {
 import { 
   CreditCard, 
   CalendarDays, 
-  CheckCircle, 
-  BarChart3
+  CheckCircle
 } from "lucide-react";
 
 export function DashboardStats() {
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 md:grid-cols-3">
       <Card className="animate-fadeIn hover-lift">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">
@@ -47,27 +46,6 @@ export function DashboardStats() {
       </Card>
       
       <Card className="animate-fadeIn hover-lift animation-delay-200">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">
-            Usage
-          </CardTitle>
-          <BarChart3 className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">65%</div>
-          <div className="mt-2 h-2 w-full rounded-full bg-muted">
-            <div 
-              className="h-2 rounded-full bg-primary" 
-              style={{ width: '65%' }}
-            />
-          </div>
-          <p className="mt-2 text-xs text-muted-foreground">
-            3/5 projects used
-          </p>
-        </CardContent>
-      </Card>
-      
-      <Card className="animate-fadeIn hover-lift animation-delay-300">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">
             Status
