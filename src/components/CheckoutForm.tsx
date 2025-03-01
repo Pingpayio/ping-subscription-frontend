@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User, Mail, Wallet, CreditCard, CheckIcon, Calendar } from "lucide-react";
@@ -50,7 +49,6 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
     setShowCardForm(true);
   };
   
-  // Generate max duration options based on the selected plan interval
   const getDurationOptions = () => {
     const options = [
       { value: "no-limit", label: "No Limit" }
@@ -88,7 +86,6 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
     return options;
   };
   
-  // Calculate end date based on max duration
   const getMaxDurationEndDate = () => {
     if (maxDuration === "no-limit") return "No end date";
     
@@ -220,8 +217,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                     <div className="flex items-center">
                       <Wallet className="mr-2 h-5 w-5" />
                       <div className="text-left">
-                        <p className="font-medium">Connect Crypto Wallet</p>
-                        <p className="text-sm text-muted-foreground">Pay with ETH, BTC, or other cryptocurrencies</p>
+                        <p className="font-medium">Connect Wallet</p>
                       </div>
                     </div>
                   </Button>
@@ -235,8 +231,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                     <div className="flex items-center">
                       <CreditCard className="mr-2 h-5 w-5" />
                       <div className="text-left">
-                        <p className="font-medium">Credit Card</p>
-                        <p className="text-sm text-muted-foreground">Pay with Visa, Mastercard, or American Express</p>
+                        <p className="font-medium">Pay with Card</p>
                       </div>
                     </div>
                   </Button>
