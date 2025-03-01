@@ -32,7 +32,7 @@ export function PaymentHistoryTable({ payments }: PaymentHistoryTableProps) {
   };
 
   return (
-    <div className="rounded-md border">
+    <div className="rounded-[4px] border">
       <Table>
         <TableHeader>
           <TableRow>

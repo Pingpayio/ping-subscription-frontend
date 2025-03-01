@@ -91,7 +91,7 @@ export function UserSubscriptionCard({ subscription }: UserSubscriptionCardProps
             </div>
           </div>
           
-          <div className="rounded-md bg-muted p-4">
+          <div className="rounded-[4px] bg-muted p-4">
             <h4 className="mb-2 font-medium">Plan features:</h4>
             <ul className="space-y-1 text-sm">
               {plan.features.map((feature) => (

@@ -6,6 +6,7 @@ import { mockUser } from "@/data/mockData";
 import { SubscriptionPlan } from "@/types/subscription";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { PaymentHistoryTable } from "@/components/PaymentHistoryTable";
 
 const Subscriptions = () => {
   const handleSelectPlan = (plan: SubscriptionPlan) => {
@@ -49,38 +50,7 @@ const Subscriptions = () => {
                 <p className="text-sm text-muted-foreground">Recent payments and upcoming bills</p>
               </div>
               
-              <div className="rounded-md border">
-                <div className="p-6">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="border-b">
-                        <th className="pb-3 text-left font-medium">Date</th>
-                        <th className="pb-3 text-left font-medium">Description</th>
-                        <th className="pb-3 text-right font-medium">Amount</th>
-                        <th className="pb-3 text-right font-medium">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {mockUser.paymentHistory.map((payment) => (
-                        <tr key={payment.id} className="border-b last:border-0">
-                          <td className="py-4">{payment.date}</td>
-                          <td className="py-4">{payment.planName}</td>
-                          <td className="py-4 text-right">${payment.amount.toFixed(2)}</td>
-                          <td className="py-4 text-right">
-                            <span className={`inline-block rounded-full px-2 py-1 text-xs font-medium ${
-                              payment.status === "successful" ? "bg-green-100 text-green-800" :
-                              payment.status === "failed" ? "bg-red-100 text-red-800" :
-                              "bg-yellow-100 text-yellow-800"
-                            }`}>
-                              {payment.status.charAt(0).toUpperCase() + payment.status.slice(1)}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              <PaymentHistoryTable payments={mockUser.paymentHistory} />
             </div>
           </TabsContent>
           
