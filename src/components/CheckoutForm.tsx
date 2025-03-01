@@ -92,11 +92,13 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
         toast.success(`Connected to NEAR wallet: ${nearWallet.getAccountId()}`);
       } else {
         // Redirect to NEAR wallet for authorization
+        // Adding the required keyType property to fix the TypeScript error
         nearWallet.requestSignIn({
           contractId: 'dev-1234567890123',  // Replace with your actual contract ID
           methodNames: ['makePayment'],      // Optional list of methods to be allowed
           successUrl: window.location.href,  // URL to redirect after successful login
           failureUrl: window.location.href,  // URL to redirect after failed login
+          keyType: 'ed25519'                 // Add the required keyType property
         });
       }
     } catch (error) {
