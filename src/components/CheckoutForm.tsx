@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { User, Mail, Wallet, CreditCard, CheckIcon } from "lucide-react";
 import { Label } from "@/components/ui/label";
@@ -9,6 +10,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { SubscriptionPlan } from "@/types/subscription";
 import { toast } from "sonner";
 import { format, addMonths, addYears } from "date-fns";
+import * as nearAPI from 'near-api-js';
 
 interface CheckoutFormProps {
   selectedPlan: SubscriptionPlan;
@@ -20,6 +22,45 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
   const [loading, setLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<"crypto" | "card" | null>(null);
   const [showCardForm, setShowCardForm] = useState(false);
+  const [nearWallet, setNearWallet] = useState<nearAPI.WalletConnection | null>(null);
+  const [nearAccountId, setNearAccountId] = useState<string | null>(null);
+  
+  // Initialize NEAR
+  useEffect(() => {
+    const initNear = async () => {
+      try {
+        const { connect, keyStores, WalletConnection } = nearAPI;
+        
+        // Configure NEAR connection
+        const config = {
+          networkId: 'testnet',
+          keyStore: new keyStores.BrowserLocalStorageKeyStore(),
+          nodeUrl: 'https://rpc.testnet.near.org',
+          walletUrl: 'https://wallet.testnet.near.org',
+          helperUrl: 'https://helper.testnet.near.org',
+          explorerUrl: 'https://explorer.testnet.near.org',
+        };
+        
+        // Connect to NEAR
+        const near = await connect(config);
+        const wallet = new WalletConnection(near, 'crypto-subscription-app');
+        
+        setNearWallet(wallet);
+        
+        // Check if user is already signed in
+        if (wallet.isSignedIn()) {
+          setNearAccountId(wallet.getAccountId());
+          setPaymentMethod("crypto");
+          toast.success(`Connected to NEAR wallet: ${wallet.getAccountId()}`);
+        }
+      } catch (error) {
+        console.error("Error initializing NEAR:", error);
+        toast.error("Failed to initialize NEAR wallet");
+      }
+    };
+    
+    initNear();
+  }, []);
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,9 +79,39 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
     ? format(addMonths(today, 1), "MMMM d, yyyy")
     : format(addYears(today, 1), "MMMM d, yyyy");
   
-  const handleConnectWallet = () => {
-    setPaymentMethod("crypto");
-    toast.success("Wallet connected successfully!");
+  const handleConnectNearWallet = async () => {
+    try {
+      if (!nearWallet) {
+        toast.error("NEAR wallet not initialized");
+        return;
+      }
+      
+      if (nearWallet.isSignedIn()) {
+        setNearAccountId(nearWallet.getAccountId());
+        setPaymentMethod("crypto");
+        toast.success(`Connected to NEAR wallet: ${nearWallet.getAccountId()}`);
+      } else {
+        // Redirect to NEAR wallet for authorization
+        nearWallet.requestSignIn({
+          contractId: 'dev-1234567890123',  // Replace with your actual contract ID
+          methodNames: ['makePayment'],      // Optional list of methods to be allowed
+          successUrl: window.location.href,  // URL to redirect after successful login
+          failureUrl: window.location.href,  // URL to redirect after failed login
+        });
+      }
+    } catch (error) {
+      console.error("Error connecting to NEAR wallet:", error);
+      toast.error("Failed to connect to NEAR wallet");
+    }
+  };
+  
+  const handleDisconnectNearWallet = () => {
+    if (nearWallet) {
+      nearWallet.signOut();
+      setNearAccountId(null);
+      setPaymentMethod(null);
+      toast.info("Disconnected from NEAR wallet");
+    }
   };
   
   const handleCardPayment = () => {
@@ -121,13 +192,13 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                     type="button" 
                     variant="outline" 
                     className="flex justify-between items-center h-auto p-4"
-                    onClick={handleConnectWallet}
+                    onClick={handleConnectNearWallet}
                   >
                     <div className="flex items-center">
                       <Wallet className="mr-2 h-5 w-5" />
                       <div className="text-left">
-                        <p className="font-medium">Connect Crypto Wallet</p>
-                        <p className="text-sm text-muted-foreground">Pay with ETH, BTC, or other cryptocurrencies</p>
+                        <p className="font-medium">Connect NEAR Wallet</p>
+                        <p className="text-sm text-muted-foreground">Pay with NEAR cryptocurrency</p>
                       </div>
                     </div>
                   </Button>
@@ -153,16 +224,18 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                 <div className="p-4 border rounded-md">
                   <div className="flex items-center gap-2 mb-2">
                     <Wallet className="h-5 w-5 text-green-500" />
-                    <span className="font-medium">Wallet Connected</span>
+                    <span className="font-medium">NEAR Wallet Connected</span>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-3">Your crypto wallet has been connected successfully.</p>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Connected account: <span className="font-mono">{nearAccountId}</span>
+                  </p>
                   <Button 
                     type="button" 
                     variant="outline" 
                     size="sm" 
-                    onClick={() => setPaymentMethod(null)}
+                    onClick={handleDisconnectNearWallet}
                   >
-                    Change
+                    Disconnect Wallet
                   </Button>
                 </div>
               )}
