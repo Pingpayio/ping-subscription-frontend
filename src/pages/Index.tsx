@@ -11,12 +11,11 @@ const Index = () => {
       <header className="bg-background px-4 py-6 md:px-6">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center">
-            <div className="relative h-9 w-9 overflow-hidden rounded-full bg-primary">
-              <div className="absolute inset-0 flex items-center justify-center text-primary-foreground font-bold">
-                S
-              </div>
-            </div>
-            <span className="ml-2 text-xl font-semibold">Subscription Haven</span>
+            <img 
+              src="/lovable-uploads/6d47a643-2439-46b1-a4d9-a4d81a096357.png" 
+              alt="Logo" 
+              className="h-8 w-auto"
+            />
           </div>
           <div className="flex items-center space-x-4">
             <Link to="/checkout">

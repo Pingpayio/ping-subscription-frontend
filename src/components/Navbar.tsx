@@ -24,7 +24,11 @@ export function Navbar() {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex gap-6 md:gap-10">
           <Link to="/" className="flex items-center space-x-2">
-            <span className="font-bold text-xl">Subscription</span>
+            <img 
+              src="/lovable-uploads/6d47a643-2439-46b1-a4d9-a4d81a096357.png" 
+              alt="Logo" 
+              className="h-8 w-auto"
+            />
           </Link>
           <nav className="hidden md:flex gap-6">
             {links.map((link) => (
