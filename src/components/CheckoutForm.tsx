@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { User, Mail, Wallet, CreditCard } from "lucide-react";
+import { User, Mail, Wallet, CreditCard, CheckIcon } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -305,7 +305,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                 <ul className="space-y-2">
                   {selectedPlan.features.map((feature) => (
                     <li key={feature} className="flex items-center">
-                      <Check className="mr-2 h-4 w-4 text-green-500" />
+                      <CheckIcon className="mr-2 h-4 w-4 text-green-500" />
                       <span className="text-sm">{feature}</span>
                     </li>
                   ))}
