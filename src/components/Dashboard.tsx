@@ -70,7 +70,6 @@ const Dashboard = () => {
             <SelectContent>
               <SelectItem value="all">All Statuses</SelectItem>
               <SelectItem value="active">Active</SelectItem>
-              <SelectItem value="trialing">Trialing</SelectItem>
               <SelectItem value="past_due">Past Due</SelectItem>
               <SelectItem value="canceled">Canceled</SelectItem>
             </SelectContent>
