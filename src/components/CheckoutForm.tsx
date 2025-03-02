@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User, Mail, Wallet, CreditCard, CheckIcon, Calendar } from "lucide-react";
@@ -105,6 +104,29 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
     
     return endDate ? format(endDate, "MMMM d, yyyy") : "Unknown";
   };
+  
+  const calculateTotalPrice = (): number => {
+    if (maxDuration === "no-limit") {
+      return selectedPlan.price;
+    }
+    
+    const durationNum = parseInt(maxDuration);
+    let multiplier = 1;
+    
+    if (selectedPlan.interval === "daily") {
+      multiplier = durationNum; // X days
+    } else if (selectedPlan.interval === "weekly") {
+      multiplier = durationNum; // X weeks
+    } else if (selectedPlan.interval === "monthly") {
+      multiplier = durationNum; // X months
+    } else if (selectedPlan.interval === "yearly") {
+      multiplier = durationNum; // X years
+    }
+    
+    return selectedPlan.price * multiplier;
+  };
+  
+  const totalPrice = calculateTotalPrice();
   
   return (
     <div className="grid gap-10 lg:grid-cols-2">
@@ -383,19 +405,27 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                 <div>
                   <p className="font-medium">{selectedPlan.name} Plan</p>
                   <p className="text-sm text-muted-foreground">
-                    Billed {selectedPlan.interval}
+                    {maxDuration === "no-limit" 
+                      ? `Billed ${selectedPlan.interval}`
+                      : `${maxDuration} × ${selectedPlan.interval} billing periods`}
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="font-medium">${selectedPlan.price.toFixed(2)}</p>
-                  <p className="text-sm text-muted-foreground">/{selectedPlan.interval}</p>
+                  {maxDuration === "no-limit" ? (
+                    <>
+                      <p className="font-medium">${selectedPlan.price.toFixed(2)}</p>
+                      <p className="text-sm text-muted-foreground">/{selectedPlan.interval}</p>
+                    </>
+                  ) : (
+                    <p className="font-medium">${totalPrice.toFixed(2)}</p>
+                  )}
                 </div>
               </div>
               
               {maxDuration !== "no-limit" && (
                 <div className="rounded-lg bg-secondary/50 p-3">
                   <div className="flex items-center justify-between">
-                    <p className="text-sm font-medium">Maximum Duration:</p>
+                    <p className="text-sm font-medium">Duration:</p>
                     <p className="text-sm">{getDurationOptions().find(opt => opt.value === maxDuration)?.label}</p>
                   </div>
                   <div className="flex items-center justify-between mt-1">
@@ -424,7 +454,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
               <div className="space-y-1">
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Subtotal</span>
-                  <span>${selectedPlan.price.toFixed(2)}</span>
+                  <span>${totalPrice.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Tax</span>
@@ -432,14 +462,18 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                 </div>
                 <div className="flex justify-between font-semibold">
                   <span>Total</span>
-                  <span>${selectedPlan.price.toFixed(2)}</span>
+                  <span>${totalPrice.toFixed(2)}</span>
                 </div>
               </div>
               
               <div className="rounded-lg bg-secondary/50 p-4 text-sm">
                 <p className="font-medium">Subscription details:</p>
                 <ul className="mt-2 space-y-1 text-muted-foreground">
-                  <li>Next billing date: {nextBillingDate}</li>
+                  {maxDuration === "no-limit" ? (
+                    <li>Next billing date: {nextBillingDate}</li>
+                  ) : (
+                    <li>One-time payment for the entire duration</li>
+                  )}
                   <li>Cancel anytime, no questions asked</li>
                 </ul>
               </div>
