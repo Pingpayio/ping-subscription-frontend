@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { DashboardStats } from "@/components/DashboardStats";
@@ -19,6 +20,7 @@ const mockSubscription: Subscription = {
   paymentMethod: "NEAR" as any,
   paymentsMade: 2,
   maxPayments: 12,
+  name: "John Doe", // Adding a name for the subscriber
 };
 
 const mockPaymentHistory: PaymentHistory[] = [
@@ -57,7 +59,9 @@ const Dashboard = () => {
         <div className="mb-8">
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
           <p className="text-muted-foreground">
-            Welcome back! Here's an overview of your subscription.
+            {subscription?.name 
+              ? `Welcome back, ${subscription.name}! Here's an overview of your subscription.`
+              : 'Welcome back! Here\'s an overview of your subscription.'}
           </p>
         </div>
         

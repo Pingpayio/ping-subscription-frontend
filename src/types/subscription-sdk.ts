@@ -1,4 +1,3 @@
-
 /**
  * Subscription status enum
  */
@@ -46,7 +45,7 @@ export interface Subscription {
   maxPayments?: number;
   paymentsMade: number;
   endDate?: string; // ISO date string
-  tokenAddress?: string;
+  name?: string; // Added name property for subscriber
 }
 
 /**

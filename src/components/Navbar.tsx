@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const customerLinks = [
   { name: "Home", href: "/", exact: true },
   { name: "Dashboard", href: "/dashboard" },
-  { name: "Settings", href: "/settings" },
+  // Settings link removed per user request
 ];
 
 const merchantLinks = [
