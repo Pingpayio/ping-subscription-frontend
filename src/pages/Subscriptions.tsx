@@ -32,10 +32,10 @@ const Subscriptions = () => {
         <div className="mx-auto max-w-7xl space-y-8">
           <div className="space-y-4 text-center">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
-              Choose the plan that's right for you
+              Choose your subscription tier
             </h2>
             <p className="mx-auto max-w-[700px] text-muted-foreground">
-              Select from our competitively priced plans designed to fit businesses of all sizes.
+              Select from our simple tiered plans designed to fit your needs.
             </p>
           </div>
 
@@ -48,7 +48,7 @@ const Subscriptions = () => {
                 <div className="space-y-4">
                   <h3 className="text-2xl font-bold">{plan.name}</h3>
                   <div className="flex items-baseline">
-                    <span className="text-3xl font-bold">${plan.price}</span>
+                    <span className="text-3xl font-bold">{plan.price} NEAR</span>
                     <span className="ml-1 text-muted-foreground">/{plan.interval}</span>
                   </div>
                   <p className="text-muted-foreground">{plan.description}</p>

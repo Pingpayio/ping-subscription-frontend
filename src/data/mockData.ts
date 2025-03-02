@@ -1,4 +1,3 @@
-
 import { 
   SubscriptionPlan, 
   User, 
@@ -10,141 +9,120 @@ import { format, addDays, addWeeks, addMonths, addYears } from "date-fns";
 
 export const dailySubscriptionPlans: SubscriptionPlan[] = [
   {
-    id: "basic-daily",
-    name: "Basic",
-    description: "Perfect for short-term personal projects",
-    price: 0.99,
+    id: "tier1-daily",
+    name: "Tier 1",
+    description: "Basic tier subscription",
+    price: 5,
     interval: "daily",
     features: [
-      "1 Project",
-      "5GB Storage",
-      "Basic Analytics",
+      "Basic Features",
+      "Limited Storage",
       "Email Support"
     ]
   },
   {
-    id: "pro-daily",
-    name: "Professional",
-    description: "Ideal for short-term professional projects",
-    price: 1.99,
+    id: "tier2-daily",
+    name: "Tier 2",
+    description: "Standard tier subscription",
+    price: 10,
     interval: "daily",
     features: [
-      "5 Projects",
-      "20GB Storage",
-      "Advanced Analytics",
-      "Priority Support",
-      "Team Collaboration"
+      "Standard Features",
+      "More Storage",
+      "Priority Support"
     ],
     isPopular: true
   },
   {
-    id: "business-daily",
-    name: "Business",
-    description: "For short-term organizational needs",
-    price: 4.99,
+    id: "tier3-daily",
+    name: "Tier 3",
+    description: "Premium tier subscription",
+    price: 20,
     interval: "daily",
     features: [
-      "Unlimited Projects",
-      "100GB Storage",
-      "Premium Analytics",
-      "24/7 Support",
-      "Team Collaboration",
-      "Custom Integrations",
-      "Dedicated Account Manager"
+      "Premium Features",
+      "Maximum Storage",
+      "24/7 Support"
     ]
   }
 ];
 
 export const weeklySubscriptionPlans: SubscriptionPlan[] = [
   {
-    id: "basic-weekly",
-    name: "Basic",
-    description: "Perfect for weekly personal projects",
-    price: 4.99,
+    id: "tier1-weekly",
+    name: "Tier 1",
+    description: "Basic tier subscription",
+    price: 25,
     interval: "weekly",
     features: [
-      "1 Project",
-      "5GB Storage",
-      "Basic Analytics",
+      "Basic Features",
+      "Limited Storage",
       "Email Support"
     ]
   },
   {
-    id: "pro-weekly",
-    name: "Professional",
-    description: "Ideal for weekly professional work",
-    price: 9.99,
+    id: "tier2-weekly",
+    name: "Tier 2",
+    description: "Standard tier subscription",
+    price: 50,
     interval: "weekly",
     features: [
-      "5 Projects",
-      "20GB Storage",
-      "Advanced Analytics",
-      "Priority Support",
-      "Team Collaboration"
+      "Standard Features",
+      "More Storage",
+      "Priority Support"
     ],
     isPopular: true
   },
   {
-    id: "business-weekly",
-    name: "Business",
-    description: "For weekly organizational needs",
-    price: 24.99,
+    id: "tier3-weekly",
+    name: "Tier 3",
+    description: "Premium tier subscription",
+    price: 100,
     interval: "weekly",
     features: [
-      "Unlimited Projects",
-      "100GB Storage",
-      "Premium Analytics",
-      "24/7 Support",
-      "Team Collaboration",
-      "Custom Integrations",
-      "Dedicated Account Manager"
+      "Premium Features",
+      "Maximum Storage",
+      "24/7 Support"
     ]
   }
 ];
 
 export const subscriptionPlans: SubscriptionPlan[] = [
   {
-    id: "basic",
-    name: "Basic",
-    description: "Perfect for personal projects and individual use",
-    price: 9.99,
+    id: "tier1",
+    name: "Tier 1",
+    description: "Basic tier subscription",
+    price: 50,
     interval: "monthly",
     features: [
-      "1 Project",
-      "5GB Storage",
-      "Basic Analytics",
+      "Basic Features",
+      "Limited Storage",
       "Email Support"
     ]
   },
   {
-    id: "pro",
-    name: "Professional",
-    description: "Ideal for professionals and small teams",
-    price: 19.99,
+    id: "tier2",
+    name: "Tier 2",
+    description: "Standard tier subscription",
+    price: 100,
     interval: "monthly",
     features: [
-      "5 Projects",
-      "20GB Storage",
-      "Advanced Analytics",
-      "Priority Support",
-      "Team Collaboration"
+      "Standard Features",
+      "More Storage",
+      "Priority Support"
     ],
     isPopular: true
   },
   {
-    id: "business",
-    name: "Business",
-    description: "For organizations with advanced needs",
-    price: 49.99,
+    id: "tier3",
+    name: "Tier 3",
+    description: "Premium tier subscription",
+    price: 300,
     interval: "monthly",
     features: [
-      "Unlimited Projects",
-      "100GB Storage",
-      "Premium Analytics",
-      "24/7 Support",
-      "Team Collaboration",
-      "Custom Integrations",
-      "Dedicated Account Manager"
+      "Premium Features",
+      "Maximum Storage",
+      "24/7 Support"
     ]
   }
 ];
@@ -172,7 +150,7 @@ export const mockUser: User = {
   subscriptions: [
     {
       id: "sub-1",
-      planId: "pro",
+      planId: "tier2",
       status: "active",
       currentPeriodEnd: format(addMonths(today, 1), 'yyyy-MM-dd'),
       cancelAtPeriodEnd: false,
@@ -199,25 +177,25 @@ export const mockUser: User = {
     {
       id: "ph-1",
       date: format(addMonths(today, -2), 'yyyy-MM-dd'),
-      amount: 19.99,
+      amount: 100,
       status: "successful",
-      planName: "Professional Plan",
+      planName: "Tier 2",
       paymentMethod: "Visa ending in 4242"
     },
     {
       id: "ph-2",
       date: format(addMonths(today, -1), 'yyyy-MM-dd'),
-      amount: 19.99,
+      amount: 100,
       status: "successful",
-      planName: "Professional Plan",
+      planName: "Tier 2",
       paymentMethod: "Visa ending in 4242"
     },
     {
       id: "ph-3",
       date: format(today, 'yyyy-MM-dd'),
-      amount: 19.99,
+      amount: 100,
       status: "successful",
-      planName: "Professional Plan",
+      planName: "Tier 2",
       paymentMethod: "Visa ending in 4242"
     }
   ]
