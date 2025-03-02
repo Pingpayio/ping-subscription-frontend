@@ -45,11 +45,6 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-8 pb-10">
-      <div className="space-y-2 mb-8">
-        <h1 className="text-3xl font-medium tracking-tight text-foreground">Subscriptions</h1>
-        <p className="text-muted-foreground">Manage your active customer subscriptions.</p>
-      </div>
-      
       <MetricsOverview />
       
       <div className="border-b border-border pb-5">
