@@ -9,51 +9,62 @@ import { Subscription, SubscriptionFrequency, SubscriptionStatus, PaymentMethod 
 import { PaymentHistory } from "@/types/subscription";
 import { Button } from "@/components/ui/button";
 
-// Mock data would eventually be replaced by real API calls to fetch user's subscription
-const mockSubscription: Subscription | undefined = {
-  id: "sub-1",
-  userId: "user-123",
-  merchantId: "merchant-456",
-  amount: "19.99",
-  frequency: SubscriptionFrequency.MONTHLY,
-  nextPaymentDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-  status: SubscriptionStatus.ACTIVE,
-  createdAt: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString(),
-  updatedAt: new Date().toISOString(),
-  paymentMethod: PaymentMethod.NEAR,
-  paymentsMade: 2,
-  maxPayments: 12,
-  name: "John Doe", // Subscriber name
-};
-
-const mockPaymentHistory: PaymentHistory[] = [
-  {
-    id: "ph-1",
-    date: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString(),
-    amount: "19.99",
-    status: "successful", // Explicitly typed as 'successful'
-    planName: "Monthly Subscription",
-    paymentMethod: "NEAR"
-  },
-  {
-    id: "ph-2",
-    date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
-    amount: "19.99",
-    status: "successful", // Explicitly typed as 'successful'
-    planName: "Monthly Subscription",
-    paymentMethod: "NEAR"
-  },
-];
-
 const Dashboard = () => {
-  // In a real app, we would fetch the subscription data from an API
-  const [subscription, setSubscription] = useState<Subscription | undefined>(mockSubscription);
+  // In a real app, this would be fetched from an API
+  const [subscription, setSubscription] = useState<Subscription | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
+  const [paymentHistory, setPaymentHistory] = useState<PaymentHistory[]>([]);
 
   useEffect(() => {
-    setTimeout(() => {
+    // Simulate API fetch delay
+    const timer = setTimeout(() => {
+      // For testing purposes, you can toggle this comment to see different views
+      // With subscription:
+      /*
+      setSubscription({
+        id: "sub-1",
+        userId: "user-123",
+        merchantId: "merchant-456",
+        amount: "19.99",
+        frequency: SubscriptionFrequency.MONTHLY,
+        nextPaymentDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+        status: SubscriptionStatus.ACTIVE,
+        createdAt: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString(),
+        updatedAt: new Date().toISOString(),
+        paymentMethod: PaymentMethod.NEAR,
+        paymentsMade: 2,
+        maxPayments: 12,
+        name: "John Doe", // Subscriber name
+      });
+      
+      setPaymentHistory([
+        {
+          id: "ph-1",
+          date: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString(),
+          amount: "19.99",
+          status: "successful",
+          planName: "Monthly Subscription",
+          paymentMethod: "NEAR"
+        },
+        {
+          id: "ph-2",
+          date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+          amount: "19.99",
+          status: "successful",
+          planName: "Monthly Subscription",
+          paymentMethod: "NEAR"
+        },
+      ]);
+      */
+      
+      // Without subscription (default for new users)
+      setSubscription(undefined);
+      setPaymentHistory([]);
+      
       setIsLoading(false);
     }, 1000);
+    
+    return () => clearTimeout(timer);
   }, []);
 
   const NoSubscriptionView = () => (
@@ -111,16 +122,18 @@ const Dashboard = () => {
             </div>
           </div>
           
-          {subscription && (
+          {subscription && !isLoading && (
             <div className="space-y-4">
               <div className="space-y-1">
                 <h2 className="text-2xl font-semibold tracking-tight">Payment History</h2>
                 <p className="text-sm text-muted-foreground">View your recent transactions</p>
               </div>
-              {isLoading ? (
-                <div className="h-64 animate-pulse bg-muted rounded-[4px]"></div>
+              {paymentHistory.length > 0 ? (
+                <PaymentHistoryTable payments={paymentHistory} />
               ) : (
-                <PaymentHistoryTable payments={mockPaymentHistory} />
+                <div className="text-center py-8 bg-card rounded-lg border">
+                  <p className="text-muted-foreground">No payment history available yet</p>
+                </div>
               )}
             </div>
           )}
