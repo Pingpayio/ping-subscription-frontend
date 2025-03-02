@@ -72,11 +72,9 @@ const Subscriptions = () => {
         </div>
       </section>
 
-      {/* Simple Footer */}
+      {/* Empty Footer */}
       <footer className="border-t bg-background px-4 py-4">
-        <div className="mx-auto max-w-7xl text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} PingPay. All rights reserved.
-        </div>
+        <div className="mx-auto max-w-7xl text-center"></div>
       </footer>
     </div>
   );
