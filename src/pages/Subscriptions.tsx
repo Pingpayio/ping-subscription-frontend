@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Check } from "lucide-react";
@@ -119,10 +120,10 @@ const Subscriptions = () => {
                   </ul>
                   <Link to={`/checkout?plan=${plan.id}`} className="block w-full">
                     <Button 
-                      variant={i === 1 ? "default" : "outline"} 
+                      variant="outline" 
                       className="w-full rounded-xl"
                     >
-                      {i === 1 ? "Get Started" : "Choose Plan"}
+                      Choose Plan
                     </Button>
                   </Link>
                 </div>
