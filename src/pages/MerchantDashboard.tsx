@@ -10,7 +10,7 @@ const MerchantDashboard = () => {
         <div className="mb-8">
           <h1 className="text-3xl font-bold tracking-tight">Merchant Subscriptions</h1>
           <p className="text-muted-foreground">
-            Manage your merchant subscriptions and customer payments.
+            View and manage your subscriptions
           </p>
         </div>
         <Dashboard />
