@@ -28,7 +28,7 @@ export default function Index() {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-5 mt-8">
-                <Link to="/dashboard">
+                <Link to="/subscriptions">
                   <Button size="lg" variant="outline" className="min-w-[240px] gap-3 text-lg px-12 py-7 h-16 rounded-[4px] border-primary/20 text-primary hover:bg-primary/5">
                     <Users size={24} />
                     For Customers

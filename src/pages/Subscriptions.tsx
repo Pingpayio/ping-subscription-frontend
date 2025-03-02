@@ -11,16 +11,15 @@ const Subscriptions = () => {
       <header className="bg-background px-4 py-6 md:px-6">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center">
-            <img 
-              src="/lovable-uploads/6d47a643-2439-46b1-a4d9-a4d81a096357.png" 
-              alt="Logo" 
-              className="h-8 w-auto"
-            />
+            <Link to="/">
+              <img 
+                src="/lovable-uploads/6d47a643-2439-46b1-a4d9-a4d81a096357.png" 
+                alt="Logo" 
+                className="h-8 w-auto"
+              />
+            </Link>
           </div>
           <div className="flex items-center space-x-4">
-            <Link to="/checkout">
-              <Button size="sm">Sign Up</Button>
-            </Link>
             <Link to="/dashboard">
               <Button variant="outline" size="sm">Dashboard</Button>
             </Link>
@@ -44,13 +43,13 @@ const Subscriptions = () => {
             {subscriptionPlans.map((plan, i) => (
               <div 
                 key={plan.id} 
-                className="rounded-xl border bg-card p-6 shadow-sm hover-lift"
+                className="rounded-xl border bg-card p-6 shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="space-y-4">
                   <h3 className="text-2xl font-bold">{plan.name}</h3>
                   <div className="flex items-baseline">
                     <span className="text-3xl font-bold">${plan.price}</span>
-                    <span className="ml-1 text-muted-foreground">/month</span>
+                    <span className="ml-1 text-muted-foreground">/{plan.interval}</span>
                   </div>
                   <p className="text-muted-foreground">{plan.description}</p>
                   <ul className="space-y-2">
@@ -61,7 +60,7 @@ const Subscriptions = () => {
                       </li>
                     ))}
                   </ul>
-                  <Link to="/checkout" className="block w-full">
+                  <Link to={`/checkout?plan=${plan.id}`} className="block w-full">
                     <Button variant={i === 1 ? "default" : "outline"} className="w-full">
                       {i === 1 ? "Get Started" : "Choose Plan"}
                     </Button>
@@ -76,7 +75,7 @@ const Subscriptions = () => {
       {/* Simple Footer */}
       <footer className="border-t bg-background px-4 py-4">
         <div className="mx-auto max-w-7xl text-center text-sm text-muted-foreground">
-          {/* Copyright removed */}
+          © {new Date().getFullYear()} PingPay. All rights reserved.
         </div>
       </footer>
     </div>
