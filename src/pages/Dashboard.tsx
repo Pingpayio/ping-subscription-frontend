@@ -1,10 +1,10 @@
-
 import { useEffect, useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { DashboardStats } from "@/components/DashboardStats";
 import { UserSubscriptionCard } from "@/components/UserSubscriptionCard";
 import { PaymentHistoryTable } from "@/components/PaymentHistoryTable";
 import { Subscription } from "@/types/subscription-sdk";
+import { PaymentHistory } from "@/types/subscription";
 
 // This would be replaced with actual SDK initialization
 const mockSubscription: Subscription = {
@@ -23,12 +23,12 @@ const mockSubscription: Subscription = {
 };
 
 // Mock payment history data structure that would come from the SDK
-const mockPaymentHistory = [
+const mockPaymentHistory: PaymentHistory[] = [
   {
     id: "ph-1",
     date: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString(),
     amount: "19.99",
-    status: "successful",
+    status: "successful", // Explicitly typed as 'successful'
     planName: "Monthly Subscription",
     paymentMethod: "NEAR"
   },
@@ -36,7 +36,7 @@ const mockPaymentHistory = [
     id: "ph-2",
     date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
     amount: "19.99",
-    status: "successful",
+    status: "successful", // Explicitly typed as 'successful'
     planName: "Monthly Subscription",
     paymentMethod: "NEAR"
   },

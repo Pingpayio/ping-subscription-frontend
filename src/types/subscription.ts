@@ -21,7 +21,7 @@ export interface PaymentMethod {
 export interface PaymentHistory {
   id: string;
   date: string;
-  amount: string | number; // Updated to accept both string and number
+  amount: string | number; // Already updated to accept both string and number
   status: 'successful' | 'failed' | 'pending' | 'refunded';
   planName: string;
   paymentMethod: string;
