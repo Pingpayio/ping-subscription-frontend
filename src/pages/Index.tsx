@@ -27,7 +27,7 @@ export default function Index() {
                   Secure Automated Reoccurring Payments
                 </h1>
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-                  Manage all your recurring payments in one place with PingPay's powerful subscription platform.
+                  Seamlessly manage and pay for subscriptions all in one place
                 </p>
               </div>
               
