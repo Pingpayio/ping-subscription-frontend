@@ -31,6 +31,21 @@ export function PaymentHistoryTable({ payments }: PaymentHistoryTableProps) {
     }
   };
 
+  // Function to format the amount, handling both string and number types
+  const formatAmount = (amount: string | number): string => {
+    if (typeof amount === 'number') {
+      return `$${amount.toFixed(2)}`;
+    } else {
+      // Try to parse the string as a number first
+      const num = parseFloat(amount);
+      if (!isNaN(num)) {
+        return `$${num.toFixed(2)}`;
+      }
+      // If it's not a valid number, return as is
+      return amount;
+    }
+  };
+
   return (
     <div className="rounded-[4px] border">
       <Table>
@@ -58,7 +73,7 @@ export function PaymentHistoryTable({ payments }: PaymentHistoryTableProps) {
                 </TableCell>
                 <TableCell>{payment.planName}</TableCell>
                 <TableCell className="text-right font-medium">
-                  ${payment.amount.toFixed(2)}
+                  {formatAmount(payment.amount)}
                 </TableCell>
                 <TableCell>{payment.paymentMethod}</TableCell>
                 <TableCell>{getStatusBadge(payment.status)}</TableCell>
