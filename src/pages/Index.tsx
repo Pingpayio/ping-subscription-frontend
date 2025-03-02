@@ -20,7 +20,7 @@ export default function Index() {
                 <h1 className="text-5xl font-bold tracking-tighter sm:text-6xl lg:text-8xl/[1.1] xl:text-9xl/[1.1] bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 max-w-[15ch] mx-auto">
                   Secure Automated Reoccurring Payments
                 </h1>
-                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">Seamlessly manage and pay for subscriptions all-in-one place with Pingpay for all use cases</p>
+                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">Seamless management and payments for subscriptions, curated for your use case.</p>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
