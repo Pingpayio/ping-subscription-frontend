@@ -5,7 +5,11 @@ import { ArrowLeft } from "lucide-react";
 import { CheckoutForm } from "@/components/CheckoutForm";
 import { SubscriptionPlan } from "@/types/subscription";
 import { Button } from "@/components/ui/button";
-import { subscriptionPlans } from "@/data/mockData";
+import { 
+  subscriptionPlans, 
+  allPlans,
+  getSubscriptionPlan
+} from "@/data/mockData";
 import { toast } from "sonner";
 
 const Checkout = () => {
@@ -19,8 +23,8 @@ const Checkout = () => {
     const planId = searchParams.get('plan');
     
     if (planId) {
-      // Find the plan in our subscriptionPlans array
-      const plan = subscriptionPlans.find(p => p.id === planId);
+      // Find the plan in our allPlans array using the utility function
+      const plan = getSubscriptionPlan(planId);
       if (plan) {
         setSelectedPlan(plan);
       } else {
