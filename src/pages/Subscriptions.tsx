@@ -97,10 +97,7 @@ const Subscriptions = () => {
                 <TabsTrigger value="WEEKLY">{formatPeriodDisplay("WEEKLY")}</TabsTrigger>
                 <TabsTrigger value="MONTHLY">{formatPeriodDisplay("MONTHLY")}</TabsTrigger>
                 <TabsTrigger value="QUARTERLY">{formatPeriodDisplay("QUARTERLY")}</TabsTrigger>
-                <TabsTrigger value="YEARLY">
-                  {formatPeriodDisplay("YEARLY")}
-                  <span className="ml-1.5 text-xs rounded-full bg-primary/10 px-2 py-0.5">Save 20%</span>
-                </TabsTrigger>
+                <TabsTrigger value="YEARLY">{formatPeriodDisplay("YEARLY")}</TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
