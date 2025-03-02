@@ -9,7 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { SubscriptionPlan } from "@/types/subscription";
 import { toast } from "sonner";
-import { format, addDays, addWeeks, addMonths, addYears } from "date-fns";
+import { format, addDays, addWeeks, addMonths, addYears, addMinutes, addHours, addQuarters } from "date-fns";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getNextBillingDate } from "@/data/mockData";
 

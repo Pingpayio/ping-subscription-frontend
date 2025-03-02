@@ -1,4 +1,3 @@
-
 import { 
   SubscriptionPlan, 
   User, 
@@ -6,7 +5,7 @@ import {
   PaymentHistory, 
   UserSubscription 
 } from "@/types/subscription";
-import { format, addDays, addWeeks, addMonths, addYears } from "date-fns";
+import { format, addDays, addWeeks, addMonths, addYears, addMinutes, addHours, addQuarters } from "date-fns";
 
 export const minuteSubscriptionPlans: SubscriptionPlan[] = [
   {
@@ -329,14 +328,23 @@ export function getSubscriptionPlan(planId: string): SubscriptionPlan | undefine
   return allPlans.find(plan => plan.id === planId);
 }
 
-export function getNextBillingDate(interval: 'daily' | 'weekly' | 'monthly' | 'yearly', startDate: Date = new Date()): string {
+export function getNextBillingDate(
+  interval: 'minute' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'quarterly' | 'yearly', 
+  startDate: Date = new Date()
+): string {
   switch (interval) {
+    case 'minute':
+      return format(addMinutes(startDate, 1), 'MMMM d, yyyy h:mm a');
+    case 'hourly':
+      return format(addHours(startDate, 1), 'MMMM d, yyyy h:mm a');
     case 'daily':
       return format(addDays(startDate, 1), 'MMMM d, yyyy');
     case 'weekly':
       return format(addWeeks(startDate, 1), 'MMMM d, yyyy');
     case 'monthly':
       return format(addMonths(startDate, 1), 'MMMM d, yyyy');
+    case 'quarterly':
+      return format(addQuarters(startDate, 1), 'MMMM d, yyyy');
     case 'yearly':
       return format(addYears(startDate, 1), 'MMMM d, yyyy');
     default:
