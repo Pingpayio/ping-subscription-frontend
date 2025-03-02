@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { CreditCard, Users } from "lucide-react";
@@ -14,7 +13,6 @@ export default function Index() {
               alt="PingPay Logo" 
               className="h-8 w-auto"
             />
-            <span className="font-bold text-xl">PingPay</span>
           </div>
         </div>
       </header>
