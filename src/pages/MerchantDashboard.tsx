@@ -20,22 +20,6 @@ const MerchantDashboard = () => {
             <p className="text-muted-foreground">Your business at a glance</p>
           </div>
           <Dashboard />
-
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold">Subscriptions</h2>
-            <p className="text-muted-foreground">Manage your customer subscriptions</p>
-          </div>
-          <Dashboard />
-
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold">Payment History</h2>
-            <p className="text-muted-foreground">Review all transactions</p>
-          </div>
-          <div className="rounded-lg border">
-            <div className="p-6">
-              <p className="text-center text-muted-foreground">No payment history available</p>
-            </div>
-          </div>
         </div>
       </main>
     </div>
