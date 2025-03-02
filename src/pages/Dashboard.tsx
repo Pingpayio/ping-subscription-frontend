@@ -1,27 +1,15 @@
 
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { DashboardStats } from "@/components/DashboardStats";
 import { UserSubscriptionCard } from "@/components/UserSubscriptionCard";
 import { PaymentHistoryTable } from "@/components/PaymentHistoryTable";
 import { Subscription } from "@/types/subscription-sdk";
 import { PaymentHistory } from "@/types/subscription";
+import { Button } from "@/components/ui/button";
 
-const mockSubscription: Subscription = {
-  id: "sub-1",
-  userId: "user-123",
-  merchantId: "merchant-456",
-  amount: "19.99",
-  frequency: "MONTHLY" as any,
-  nextPaymentDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-  status: "ACTIVE" as any,
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
-  paymentMethod: "NEAR" as any,
-  paymentsMade: 2,
-  maxPayments: 12,
-  name: "John Doe", // Adding a name for the subscriber
-};
+const mockSubscription: Subscription | undefined = undefined; // Set to undefined to simulate no subscription
 
 const mockPaymentHistory: PaymentHistory[] = [
   {
@@ -52,6 +40,21 @@ const Dashboard = () => {
     }, 1000);
   }, []);
 
+  const NoSubscriptionView = () => (
+    <div className="text-center py-12 bg-card rounded-lg border shadow-sm px-6">
+      <h3 className="text-xl font-semibold mb-3">No Active Subscription</h3>
+      <p className="text-muted-foreground mb-6">
+        You currently don't have any active subscriptions. 
+        Explore our subscription plans to get started with our services.
+      </p>
+      <Link to="/subscriptions">
+        <Button className="rounded-xl">
+          View Subscription Options
+        </Button>
+      </Link>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
@@ -61,7 +64,7 @@ const Dashboard = () => {
           <p className="text-muted-foreground">
             {subscription?.name 
               ? `Welcome back, ${subscription.name}! Here's an overview of your subscription.`
-              : 'Welcome back! Here\'s an overview of your subscription.'}
+              : 'Welcome back! Here\'s an overview of your account.'}
           </p>
         </div>
         
@@ -87,24 +90,24 @@ const Dashboard = () => {
               ) : subscription ? (
                 <UserSubscriptionCard subscription={subscription} />
               ) : (
-                <div className="text-center py-12 border rounded-[4px] bg-card">
-                  <p className="text-muted-foreground">No active subscriptions found.</p>
-                </div>
+                <NoSubscriptionView />
               )}
             </div>
           </div>
           
-          <div className="space-y-4">
-            <div className="space-y-1">
-              <h2 className="text-2xl font-semibold tracking-tight">Payment History</h2>
-              <p className="text-sm text-muted-foreground">View your recent transactions</p>
+          {subscription && (
+            <div className="space-y-4">
+              <div className="space-y-1">
+                <h2 className="text-2xl font-semibold tracking-tight">Payment History</h2>
+                <p className="text-sm text-muted-foreground">View your recent transactions</p>
+              </div>
+              {isLoading ? (
+                <div className="h-64 animate-pulse bg-muted rounded-[4px]"></div>
+              ) : (
+                <PaymentHistoryTable payments={mockPaymentHistory} />
+              )}
             </div>
-            {isLoading ? (
-              <div className="h-64 animate-pulse bg-muted rounded-[4px]"></div>
-            ) : (
-              <PaymentHistoryTable payments={mockPaymentHistory} />
-            )}
-          </div>
+          )}
         </div>
       </main>
       
