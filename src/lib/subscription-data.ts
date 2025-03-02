@@ -1,3 +1,4 @@
+
 export type Subscription = {
   id: string;
   customerName: string;
@@ -107,17 +108,17 @@ export const formatCurrency = (amount: number, currency: string): string => {
 export const getMetricsOverview = () => {
   const totalActive = subscriptions.filter(sub => sub.status === 'active').length;
   const totalPastDue = subscriptions.filter(sub => sub.status === 'past_due').length;
-  const totalTrialing = subscriptions.filter(sub => sub.status === 'trialing').length;
+  const totalCanceled = subscriptions.filter(sub => sub.status === 'canceled').length;
   
   const totalRevenue = subscriptions
-    .filter(sub => sub.status === 'active' || sub.status === 'trialing')
+    .filter(sub => sub.status === 'active')
     .reduce((sum, sub) => sum + sub.amount, 0);
     
   return {
     totalSubscriptions: subscriptions.length,
     activeSubscriptions: totalActive,
     pastDueSubscriptions: totalPastDue,
-    trialingSubscriptions: totalTrialing,
+    canceledSubscriptions: totalCanceled,
     monthlyRecurringRevenue: totalRevenue
   };
 };
