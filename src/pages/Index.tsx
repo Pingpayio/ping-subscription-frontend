@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { CreditCard, Users } from "lucide-react";
@@ -43,25 +44,6 @@ export default function Index() {
                     For Merchants
                   </Button>
                 </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-        
-        <section className="w-full py-12 md:py-24 bg-muted/50">
-          <div className="container px-4 md:px-6">
-            <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3">
-              <div className="rounded-lg border bg-card p-6 hover-lift">
-                <h3 className="text-lg font-semibold">Simple Integration</h3>
-                <p className="text-muted-foreground mt-2">Connect your payment methods and start managing subscriptions in minutes.</p>
-              </div>
-              <div className="rounded-lg border bg-card p-6 hover-lift">
-                <h3 className="text-lg font-semibold">Smart Notifications</h3>
-                <p className="text-muted-foreground mt-2">Get alerted before payments are due and avoid unexpected charges.</p>
-              </div>
-              <div className="rounded-lg border bg-card p-6 hover-lift">
-                <h3 className="text-lg font-semibold">Detailed Analytics</h3>
-                <p className="text-muted-foreground mt-2">Track spending patterns and optimize your subscription costs.</p>
               </div>
             </div>
           </div>
