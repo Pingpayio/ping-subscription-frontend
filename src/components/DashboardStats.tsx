@@ -54,9 +54,6 @@ export function DashboardStats() {
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">Active</div>
-          <p className="text-xs text-muted-foreground">
-            Member since March 2023
-          </p>
         </CardContent>
       </Card>
     </div>
