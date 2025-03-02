@@ -3,15 +3,23 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
-const links = [
+// Define separate link sets for customer and merchant flows
+const customerLinks = [
   { name: "Home", href: "/", exact: true },
   { name: "Dashboard", href: "/dashboard" },
-  { name: "Merchant Dashboard", href: "/merchant-dashboard" },
   { name: "Settings", href: "/settings" },
+];
+
+const merchantLinks = [
+  { name: "Home", href: "/", exact: true },
 ];
 
 export function Navbar() {
   const location = useLocation();
+  
+  // Determine if we're in the merchant dashboard to show appropriate links
+  const isMerchantDashboard = location.pathname === "/merchant-dashboard";
+  const links = isMerchantDashboard ? merchantLinks : customerLinks;
   
   const isActive = (path: string, exact: boolean = false) => {
     if (exact) {
