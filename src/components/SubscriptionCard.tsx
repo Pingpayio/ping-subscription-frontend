@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Subscription, getSubscriptionStatusColor, formatCurrency } from "@/lib/subscription-data";
+import { Subscription, getSubscriptionStatusColor } from "@/lib/subscription-data";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { CreditCard, Calendar, DollarSign } from "lucide-react";
 import { format } from "date-fns";
@@ -18,6 +18,20 @@ const SubscriptionCard = ({ subscription }: SubscriptionCardProps) => {
   const formattedNextBillingDate = format(new Date(subscription.nextBillingDate), 'MMM d, yyyy');
   
   const isCryptoPayment = subscription.paymentMethod === 'crypto' || subscription.paymentMethod === 'bank_transfer';
+  
+  // Custom format currency function to handle NEAR cryptocurrency
+  const formatCryptoCurrency = (amount: number | string, currency: string) => {
+    if (currency === 'NEAR') {
+      // For NEAR, just append the currency code
+      return `${typeof amount === 'string' ? parseFloat(amount).toFixed(2) : amount.toFixed(2)} NEAR`;
+    } else {
+      // For standard currencies, use the Intl formatter
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: currency,
+      }).format(typeof amount === 'string' ? parseFloat(amount) : amount);
+    }
+  };
   
   return (
     <Card 
@@ -40,7 +54,7 @@ const SubscriptionCard = ({ subscription }: SubscriptionCardProps) => {
               </div>
             </div>
             <div className="text-lg font-bold text-card-foreground">
-              {formatCurrency(subscription.amount, subscription.currency)}
+              {formatCryptoCurrency(subscription.amount, subscription.currency)}
             </div>
           </div>
           
