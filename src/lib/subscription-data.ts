@@ -1,9 +1,8 @@
-
 export type Subscription = {
   id: string;
   customerName: string;
   planName: string;
-  status: 'active' | 'trialing' | 'past_due' | 'canceled';
+  status: 'active' | 'past_due' | 'canceled';
   amount: number;
   currency: string;
   startDate: string;
@@ -41,7 +40,7 @@ export const subscriptions: Subscription[] = [
     id: 'sub_3K4XtH',
     customerName: 'Emma Rodriguez',
     planName: 'Tier 1',
-    status: 'trialing',
+    status: 'active', // Changed from trialing to active
     amount: 50,
     currency: 'NEAR',
     startDate: '2025-05-30',
@@ -89,8 +88,6 @@ export const getSubscriptionStatusColor = (status: Subscription['status']): stri
   switch (status) {
     case 'active':
       return 'bg-emerald-50 text-emerald-700 border-emerald-200';
-    case 'trialing':
-      return 'bg-blue-50 text-blue-700 border-blue-200';
     case 'past_due':
       return 'bg-amber-50 text-amber-700 border-amber-200';
     case 'canceled':
