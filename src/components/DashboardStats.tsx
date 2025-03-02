@@ -20,7 +20,7 @@ export function DashboardStats() {
           <CardTitle className="text-sm font-medium">
             Active Subscription
           </CardTitle>
-          <CreditCard className="h-4 w-4 text-muted-foreground" />
+          <CreditCard className="h-6 w-6 text-muted-foreground" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">Professional</div>
@@ -35,7 +35,7 @@ export function DashboardStats() {
           <CardTitle className="text-sm font-medium">
             Next Payment
           </CardTitle>
-          <CalendarDays className="h-4 w-4 text-muted-foreground" />
+          <CalendarDays className="h-6 w-6 text-muted-foreground" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">June 15, 2023</div>
@@ -50,7 +50,7 @@ export function DashboardStats() {
           <CardTitle className="text-sm font-medium">
             Status
           </CardTitle>
-          <CheckCircle className="h-4 w-4 text-green-500" />
+          <CheckCircle className="h-6 w-6 text-green-500" />
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">Active</div>
