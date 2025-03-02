@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User, Mail, Wallet, CreditCard, CheckIcon, Calendar } from "lucide-react";
@@ -413,11 +414,11 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                 <div className="text-right">
                   {maxDuration === "no-limit" ? (
                     <>
-                      <p className="font-medium">${selectedPlan.price.toFixed(2)}</p>
+                      <p className="font-medium">{selectedPlan.price.toFixed(2)} NEAR</p>
                       <p className="text-sm text-muted-foreground">/{selectedPlan.interval}</p>
                     </>
                   ) : (
-                    <p className="font-medium">${totalPrice.toFixed(2)}</p>
+                    <p className="font-medium">{totalPrice.toFixed(2)} NEAR</p>
                   )}
                 </div>
               </div>
@@ -454,15 +455,15 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
               <div className="space-y-1">
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Subtotal</span>
-                  <span>${totalPrice.toFixed(2)}</span>
+                  <span>{totalPrice.toFixed(2)} NEAR</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">Tax</span>
-                  <span>$0.00</span>
+                  <span>0.00 NEAR</span>
                 </div>
                 <div className="flex justify-between font-semibold">
                   <span>Total</span>
-                  <span>${totalPrice.toFixed(2)}</span>
+                  <span>{totalPrice.toFixed(2)} NEAR</span>
                 </div>
               </div>
               
