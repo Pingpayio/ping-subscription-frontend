@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { PaymentMethodCard } from "@/components/PaymentMethodCard";
@@ -303,12 +302,8 @@ const Settings = () => {
       
       <footer className="border-t py-6 md:py-0">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-16 md:flex-row">
-          <p className="text-sm text-muted-foreground">
-            © 2023 Subscription Haven. All rights reserved.
-          </p>
-          <p className="text-sm text-muted-foreground">
-            Need help? <a href="#" className="underline">Contact support</a>
-          </p>
+          <p className="text-sm text-muted-foreground"></p>
+          <p className="text-sm text-muted-foreground"></p>
         </div>
       </footer>
     </div>

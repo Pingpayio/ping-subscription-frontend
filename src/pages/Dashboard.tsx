@@ -6,7 +6,6 @@ import { PaymentHistoryTable } from "@/components/PaymentHistoryTable";
 import { Subscription } from "@/types/subscription-sdk";
 import { PaymentHistory } from "@/types/subscription";
 
-// This would be replaced with actual SDK initialization
 const mockSubscription: Subscription = {
   id: "sub-1",
   userId: "user-123",
@@ -22,7 +21,6 @@ const mockSubscription: Subscription = {
   maxPayments: 12,
 };
 
-// Mock payment history data structure that would come from the SDK
 const mockPaymentHistory: PaymentHistory[] = [
   {
     id: "ph-1",
@@ -46,27 +44,7 @@ const Dashboard = () => {
   const [subscription, setSubscription] = useState<Subscription | undefined>(mockSubscription);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Simulating SDK data fetching
   useEffect(() => {
-    // In a real implementation, this would use the SDK to fetch user data
-    // const fetchData = async () => {
-    //   try {
-    //     const sdk = new SubscriptionSDK();
-    //     const accountId = await sdk.getWorkerAddress();
-    //     const { subscriptions } = await sdk.getUserSubscriptions(accountId);
-    //     if (subscriptions && subscriptions.length > 0) {
-    //       setSubscription(subscriptions[0]);
-    //     }
-    //   } catch (error) {
-    //     console.error("Failed to fetch subscription data:", error);
-    //   } finally {
-    //     setIsLoading(false);
-    //   }
-    // };
-    
-    // fetchData();
-    
-    // Simulating API call with timeout
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
@@ -128,12 +106,8 @@ const Dashboard = () => {
       
       <footer className="border-t py-6 md:py-0">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-16 md:flex-row">
-          <p className="text-sm text-muted-foreground">
-            © 2023 Subscription Haven. All rights reserved.
-          </p>
-          <p className="text-sm text-muted-foreground">
-            Version 1.0.0
-          </p>
+          <p className="text-sm text-muted-foreground"></p>
+          <p className="text-sm text-muted-foreground"></p>
         </div>
       </footer>
     </div>
