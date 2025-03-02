@@ -26,13 +26,20 @@ export default function Index() {
               
               <div className="flex flex-col sm:flex-row gap-4 mt-10">
                 <Link to="/dashboard">
-                  <Button size="lg" className="min-w-[220px] gap-2 text-base px-10 py-6 h-14">
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="min-w-[220px] gap-2 text-base px-10 py-6 h-14 rounded-[4px]"
+                  >
                     <Users size={22} />
                     For Customers
                   </Button>
                 </Link>
                 <Link to="/merchant-dashboard">
-                  <Button size="lg" variant="outline" className="min-w-[220px] gap-2 text-base px-10 py-6 h-14">
+                  <Button 
+                    size="lg" 
+                    className="min-w-[220px] gap-2 text-base px-10 py-6 h-14 rounded-[4px] bg-primary text-white hover:bg-primary/90"
+                  >
                     <Store size={22} />
                     For Merchants
                   </Button>
