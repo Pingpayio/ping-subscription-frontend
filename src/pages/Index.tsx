@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Store, Users } from "lucide-react";
 
 export default function Index() {
-  return <div className="flex flex-col min-h-screen bg-background">
+  return <div className="flex flex-col h-screen bg-background">
       <header className="border-b">
         <div className="container flex h-16 items-center">
           <div className="flex items-center space-x-2">
@@ -13,18 +13,18 @@ export default function Index() {
         </div>
       </header>
       
-      <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+      <main className="flex-1 flex items-center justify-center">
+        <section className="w-full">
           <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-8 text-center">
-              <div className="space-y-4">
-                <h1 className="text-5xl font-bold tracking-tighter sm:text-6xl lg:text-8xl/[1.1] xl:text-9xl/[1.1] bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 max-w-[15ch] mx-auto">
+            <div className="flex flex-col items-center space-y-6 text-center">
+              <div className="space-y-3">
+                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl lg:text-6xl/[1.1] bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 max-w-[15ch] mx-auto">
                   Secure Automated Reoccurring Payments
                 </h1>
-                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl mt-4">Seamless management and payment for subscriptions services. All-in-one payment services with Pingpay, curated for your use case.</p>
+                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">Seamless management and payment for subscriptions services. All-in-one payment services with Pingpay, curated for your use case.</p>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4 mt-10">
+              <div className="flex flex-col sm:flex-row gap-4 mt-6">
                 <Link to="/dashboard">
                   <Button 
                     size="lg" 
