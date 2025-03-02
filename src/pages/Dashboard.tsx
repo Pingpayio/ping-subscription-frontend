@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
@@ -18,9 +17,7 @@ const Dashboard = () => {
   useEffect(() => {
     // Simulate API fetch delay
     const timer = setTimeout(() => {
-      // For testing purposes, you can toggle this comment to see different views
-      // With subscription:
-      /*
+      // Show subscription by default instead of empty state
       setSubscription({
         id: "sub-1",
         userId: "user-123",
@@ -55,11 +52,12 @@ const Dashboard = () => {
           paymentMethod: "NEAR"
         },
       ]);
-      */
       
-      // Without subscription (default for new users)
+      // If you want to test the no subscription view, uncomment these lines:
+      /*
       setSubscription(undefined);
       setPaymentHistory([]);
+      */
       
       setIsLoading(false);
     }, 1000);
