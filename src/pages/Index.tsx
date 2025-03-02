@@ -18,10 +18,10 @@ export default function Index() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center space-y-6 text-center">
               <div className="space-y-3">
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl lg:text-6xl/[1.1] bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 max-w-[15ch] mx-auto">
+                <h1 className="text-5xl font-bold tracking-tighter sm:text-6xl lg:text-7xl/[1.1] bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 max-w-[15ch] mx-auto">
                   Secure Automated Reoccurring Payments
                 </h1>
-                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-lg">Seamless management and payment for subscriptions services. All-in-one payment services with Pingpay, curated for your use case.</p>
+                <p className="mx-auto max-w-[700px] text-muted-foreground text-lg md:text-xl">Seamless management and payment for subscriptions services. All-in-one payment services with Pingpay, curated for your use case.</p>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 mt-6">
