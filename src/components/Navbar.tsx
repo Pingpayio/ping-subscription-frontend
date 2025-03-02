@@ -34,7 +34,7 @@ export function Navbar() {
         <div className="flex gap-6 md:gap-10 items-center">
           <Link to="/" className="flex items-center space-x-2">
             <img 
-              src="/lovable-uploads/2ace9c4f-c699-4bf8-bea6-1fa2ce10467d.png" 
+              src="/lovable-uploads/6d47a643-2439-46b1-a4d9-a4d81a096357.png" 
               alt="Logo" 
               className="h-8 w-auto"
             />
