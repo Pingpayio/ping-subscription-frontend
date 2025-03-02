@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Store, Users } from "lucide-react";
+
 export default function Index() {
   return <div className="flex flex-col h-screen bg-background">
       <header className="border-b">
@@ -28,18 +29,29 @@ export default function Index() {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-5 mt-8">
-                <Link to="/subscriptions">
-                  <Button size="lg" variant="outline" className="min-w-[240px] gap-3 text-lg px-12 py-7 h-16 rounded-[4px] border-primary/20 text-primary hover:bg-primary/5">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="min-w-[240px] gap-3 text-lg px-12 py-7 h-16 rounded-[4px] border-primary/20 text-primary hover:bg-primary/5"
+                  asChild
+                >
+                  <Link to="/subscriptions">
                     <Users size={24} />
                     For Customers
-                  </Button>
-                </Link>
-                <Link to="/merchant-dashboard">
-                  <Button size="lg" variant="outline" className="min-w-[240px] gap-3 text-lg px-12 py-7 h-16 rounded-[4px] border-primary/20 text-primary hover:bg-primary/5">
+                  </Link>
+                </Button>
+                
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="min-w-[240px] gap-3 text-lg px-12 py-7 h-16 rounded-[4px] border-primary/20 text-primary hover:bg-primary/5"
+                  asChild
+                >
+                  <Link to="/merchant-dashboard">
                     <Store size={24} />
                     For Merchants
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>
