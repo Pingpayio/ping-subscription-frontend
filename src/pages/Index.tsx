@@ -49,24 +49,6 @@ export default function Index() {
           </div>
         </section>
       </main>
-      
-      <footer className="border-t py-6">
-        <div className="container flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex items-center space-x-2">
-            <img 
-              src="/lovable-uploads/6d47a643-2439-46b1-a4d9-a4d81a096357.png" 
-              alt="PingPay Logo" 
-              className="h-6 w-auto"
-            />
-            <span>© 2023 PingPay. All rights reserved.</span>
-          </div>
-          <div className="flex space-x-4">
-            <a href="#" className="text-muted-foreground hover:text-primary">Terms</a>
-            <a href="#" className="text-muted-foreground hover:text-primary">Privacy</a>
-            <a href="#" className="text-muted-foreground hover:text-primary">Contact</a>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
