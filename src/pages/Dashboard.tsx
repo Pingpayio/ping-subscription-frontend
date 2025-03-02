@@ -1,15 +1,28 @@
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { DashboardStats } from "@/components/DashboardStats";
 import { UserSubscriptionCard } from "@/components/UserSubscriptionCard";
 import { PaymentHistoryTable } from "@/components/PaymentHistoryTable";
-import { Subscription } from "@/types/subscription-sdk";
+import { Subscription, SubscriptionFrequency, SubscriptionStatus, PaymentMethod } from "@/types/subscription-sdk";
 import { PaymentHistory } from "@/types/subscription";
 import { Button } from "@/components/ui/button";
 
-const mockSubscription: Subscription | undefined = undefined; // Set to undefined to simulate no subscription
+const mockSubscription: Subscription | undefined = {
+  id: "sub-1",
+  userId: "user-123",
+  merchantId: "merchant-456",
+  amount: "19.99",
+  frequency: SubscriptionFrequency.MONTHLY,
+  nextPaymentDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+  status: SubscriptionStatus.ACTIVE,
+  createdAt: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString(),
+  updatedAt: new Date().toISOString(),
+  paymentMethod: PaymentMethod.NEAR,
+  paymentsMade: 2,
+  maxPayments: 12,
+  name: "John Doe", // Subscriber name
+};
 
 const mockPaymentHistory: PaymentHistory[] = [
   {
