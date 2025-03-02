@@ -47,14 +47,6 @@ export function Navbar() {
             ))}
           </nav>
         </div>
-        <div className="flex items-center gap-4">
-          <Link
-            to="/checkout"
-            className="bg-primary text-white rounded-full px-4 py-2 text-sm font-medium transition-colors hover:bg-primary/90"
-          >
-            Upgrade
-          </Link>
-        </div>
       </div>
     </header>
   );
