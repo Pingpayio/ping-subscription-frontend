@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Check } from "lucide-react";
@@ -19,7 +18,6 @@ import { SubscriptionFrequency } from "@/types/subscription-sdk";
 const Subscriptions = () => {
   const [selectedPeriod, setSelectedPeriod] = useState<keyof typeof SubscriptionFrequency>("MONTHLY");
   
-  // Get the appropriate plans based on the selected period
   const getPlansForPeriod = (): SubscriptionPlan[] => {
     switch (selectedPeriod) {
       case "MINUTE":
@@ -43,14 +41,12 @@ const Subscriptions = () => {
 
   const currentPlans = getPlansForPeriod();
 
-  // Helper function to display the period in a user-friendly way
   const formatPeriodDisplay = (period: string): string => {
     return period.charAt(0) + period.slice(1).toLowerCase();
   };
 
   return (
     <div className="flex min-h-screen flex-col">
-      {/* Header */}
       <header className="bg-background px-4 py-6 md:px-6">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center">
@@ -70,7 +66,6 @@ const Subscriptions = () => {
         </div>
       </header>
 
-      {/* Subscription Plans Section */}
       <section className="flex-1 bg-muted/50 px-4 py-12">
         <div className="mx-auto max-w-7xl space-y-8">
           <div className="space-y-4 text-center">
@@ -82,7 +77,6 @@ const Subscriptions = () => {
             </p>
           </div>
 
-          {/* Billing Period Selector */}
           <div className="flex justify-center mb-8">
             <Tabs 
               defaultValue="MONTHLY" 
@@ -124,7 +118,10 @@ const Subscriptions = () => {
                     ))}
                   </ul>
                   <Link to={`/checkout?plan=${plan.id}`} className="block w-full">
-                    <Button variant={i === 1 ? "default" : "outline"} className="w-full">
+                    <Button 
+                      variant={i === 1 ? "default" : "outline"} 
+                      className="w-full rounded-xl"
+                    >
                       {i === 1 ? "Get Started" : "Choose Plan"}
                     </Button>
                   </Link>
@@ -135,7 +132,6 @@ const Subscriptions = () => {
         </div>
       </section>
 
-      {/* Empty Footer */}
       <footer className="border-t bg-background px-4 py-4">
         <div className="mx-auto max-w-7xl text-center"></div>
       </footer>
