@@ -27,7 +27,7 @@ export default function Index() {
                   Secure Automated Reoccurring Payments
                 </h1>
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-                  Seamlessly manage and pay for subscriptions all in one place
+                  Seamlessly manage and pay for subscriptions all-in-one place with Pingpay for all use cases
                 </p>
               </div>
               
