@@ -90,7 +90,7 @@ const Subscriptions = () => {
               onValueChange={(value) => setSelectedPeriod(value as keyof typeof SubscriptionFrequency)}
               className="w-full max-w-4xl overflow-x-auto"
             >
-              <TabsList className="grid grid-cols-7 w-full">
+              <TabsList className="grid grid-cols-7 w-full rounded-xl">
                 <TabsTrigger value="MINUTE">{formatPeriodDisplay("MINUTE")}</TabsTrigger>
                 <TabsTrigger value="HOURLY">{formatPeriodDisplay("HOURLY")}</TabsTrigger>
                 <TabsTrigger value="DAILY">{formatPeriodDisplay("DAILY")}</TabsTrigger>
