@@ -46,8 +46,8 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
   };
   
   const handleCardPayment = () => {
-    setPaymentMethod("card");
-    setShowCardForm(true);
+    // We'll show a toast indicating this option is not available
+    toast.info("Card payments are currently unavailable. Please connect wallet instead.");
   };
   
   const getDurationOptions = () => {
@@ -226,13 +226,15 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                   <Button 
                     type="button" 
                     variant="outline" 
-                    className="flex justify-between items-center h-auto p-4 border-secondary bg-secondary/50 hover:bg-accent/10"
+                    className="flex justify-between items-center h-auto p-4 border-secondary bg-secondary/50 hover:bg-accent/10 opacity-50 cursor-not-allowed"
                     onClick={handleCardPayment}
+                    disabled
                   >
                     <div className="flex items-center">
                       <CreditCard className="mr-2 h-5 w-5" />
                       <div className="text-left">
                         <p className="font-medium">Pay with Card</p>
+                        <p className="text-xs text-muted-foreground">Currently unavailable</p>
                       </div>
                     </div>
                   </Button>
