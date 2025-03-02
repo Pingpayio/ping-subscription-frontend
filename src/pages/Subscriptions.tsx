@@ -1,10 +1,38 @@
 
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { subscriptionPlans } from "@/data/mockData";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { 
+  subscriptionPlans, 
+  dailySubscriptionPlans, 
+  weeklySubscriptionPlans, 
+  yearlySubscriptionPlans 
+} from "@/data/mockData";
+import type { SubscriptionPlan } from "@/types/subscription";
 
 const Subscriptions = () => {
+  const [selectedPeriod, setSelectedPeriod] = useState<"daily" | "weekly" | "monthly" | "yearly">("monthly");
+  
+  // Get the appropriate plans based on the selected period
+  const getPlansForPeriod = (): SubscriptionPlan[] => {
+    switch (selectedPeriod) {
+      case "daily":
+        return dailySubscriptionPlans;
+      case "weekly":
+        return weeklySubscriptionPlans;
+      case "monthly":
+        return subscriptionPlans;
+      case "yearly":
+        return yearlySubscriptionPlans;
+      default:
+        return subscriptionPlans;
+    }
+  };
+
+  const currentPlans = getPlansForPeriod();
+
   return (
     <div className="flex min-h-screen flex-col">
       {/* Header */}
@@ -39,8 +67,28 @@ const Subscriptions = () => {
             </p>
           </div>
 
+          {/* Billing Period Selector */}
+          <div className="flex justify-center mb-8">
+            <Tabs 
+              defaultValue="monthly" 
+              value={selectedPeriod}
+              onValueChange={(value) => setSelectedPeriod(value as "daily" | "weekly" | "monthly" | "yearly")}
+              className="w-full max-w-md"
+            >
+              <TabsList className="grid grid-cols-4 w-full">
+                <TabsTrigger value="daily">Daily</TabsTrigger>
+                <TabsTrigger value="weekly">Weekly</TabsTrigger>
+                <TabsTrigger value="monthly">Monthly</TabsTrigger>
+                <TabsTrigger value="yearly">
+                  Yearly
+                  <span className="ml-1.5 text-xs rounded-full bg-primary/10 px-2 py-0.5">Save 20%</span>
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+
           <div className="grid gap-8 md:grid-cols-3">
-            {subscriptionPlans.map((plan, i) => (
+            {currentPlans.map((plan, i) => (
               <div 
                 key={plan.id} 
                 className="rounded-xl border bg-card p-6 shadow-sm hover:shadow-md transition-shadow"
