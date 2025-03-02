@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
@@ -8,6 +9,7 @@ import { Subscription, SubscriptionFrequency, SubscriptionStatus, PaymentMethod 
 import { PaymentHistory } from "@/types/subscription";
 import { Button } from "@/components/ui/button";
 
+// Mock data would eventually be replaced by real API calls to fetch user's subscription
 const mockSubscription: Subscription | undefined = {
   id: "sub-1",
   userId: "user-123",
@@ -44,6 +46,7 @@ const mockPaymentHistory: PaymentHistory[] = [
 ];
 
 const Dashboard = () => {
+  // In a real app, we would fetch the subscription data from an API
   const [subscription, setSubscription] = useState<Subscription | undefined>(mockSubscription);
   const [isLoading, setIsLoading] = useState(true);
 
