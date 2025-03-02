@@ -29,7 +29,7 @@ export default function Index() {
                   <Button 
                     size="lg" 
                     variant="outline" 
-                    className="min-w-[220px] gap-2 text-base px-10 py-6 h-14 rounded-[4px]"
+                    className="min-w-[220px] gap-2 text-base px-10 py-6 h-14 rounded-[4px] border-primary/20 text-primary hover:bg-primary/5"
                   >
                     <Users size={22} />
                     For Customers
@@ -38,7 +38,8 @@ export default function Index() {
                 <Link to="/merchant-dashboard">
                   <Button 
                     size="lg" 
-                    className="min-w-[220px] gap-2 text-base px-10 py-6 h-14 rounded-[4px] bg-primary text-white hover:bg-primary/90"
+                    variant="outline"
+                    className="min-w-[220px] gap-2 text-base px-10 py-6 h-14 rounded-[4px] border-primary/20 text-primary hover:bg-primary/5"
                   >
                     <Store size={22} />
                     For Merchants
