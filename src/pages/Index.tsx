@@ -23,7 +23,7 @@ export default function Index() {
                 <p className="mx-auto max-w-[700px] text-muted-foreground text-xl md:text-2xl">
                   Seamless management and payment for subscriptions services.
                   <br />
-                  All-in-one payment services with Pingpay, curated for your use case.
+                  All-in-one payment services curated for your use case.
                 </p>
               </div>
               
