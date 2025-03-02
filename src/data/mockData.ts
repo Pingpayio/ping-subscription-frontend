@@ -1,3 +1,4 @@
+
 import { 
   SubscriptionPlan, 
   User, 
@@ -6,6 +7,86 @@ import {
   UserSubscription 
 } from "@/types/subscription";
 import { format, addDays, addWeeks, addMonths, addYears } from "date-fns";
+
+export const minuteSubscriptionPlans: SubscriptionPlan[] = [
+  {
+    id: "tier1-minute",
+    name: "Tier 1",
+    description: "Basic tier subscription",
+    price: 0.1,
+    interval: "minute",
+    features: [
+      "Basic Features",
+      "Limited Storage",
+      "Email Support"
+    ]
+  },
+  {
+    id: "tier2-minute",
+    name: "Tier 2",
+    description: "Standard tier subscription",
+    price: 0.2,
+    interval: "minute",
+    features: [
+      "Standard Features",
+      "More Storage",
+      "Priority Support"
+    ],
+    isPopular: true
+  },
+  {
+    id: "tier3-minute",
+    name: "Tier 3",
+    description: "Premium tier subscription",
+    price: 0.5,
+    interval: "minute",
+    features: [
+      "Premium Features",
+      "Maximum Storage",
+      "24/7 Support"
+    ]
+  }
+];
+
+export const hourlySubscriptionPlans: SubscriptionPlan[] = [
+  {
+    id: "tier1-hourly",
+    name: "Tier 1",
+    description: "Basic tier subscription",
+    price: 1,
+    interval: "hourly",
+    features: [
+      "Basic Features",
+      "Limited Storage",
+      "Email Support"
+    ]
+  },
+  {
+    id: "tier2-hourly",
+    name: "Tier 2",
+    description: "Standard tier subscription",
+    price: 2,
+    interval: "hourly",
+    features: [
+      "Standard Features",
+      "More Storage",
+      "Priority Support"
+    ],
+    isPopular: true
+  },
+  {
+    id: "tier3-hourly",
+    name: "Tier 3",
+    description: "Premium tier subscription",
+    price: 5,
+    interval: "hourly",
+    features: [
+      "Premium Features",
+      "Maximum Storage",
+      "24/7 Support"
+    ]
+  }
+];
 
 export const dailySubscriptionPlans: SubscriptionPlan[] = [
   {
@@ -127,6 +208,46 @@ export const subscriptionPlans: SubscriptionPlan[] = [
   }
 ];
 
+export const quarterlySubscriptionPlans: SubscriptionPlan[] = [
+  {
+    id: "tier1-quarterly",
+    name: "Tier 1",
+    description: "Basic tier subscription",
+    price: 135,
+    interval: "quarterly",
+    features: [
+      "Basic Features",
+      "Limited Storage",
+      "Email Support"
+    ]
+  },
+  {
+    id: "tier2-quarterly",
+    name: "Tier 2",
+    description: "Standard tier subscription",
+    price: 270,
+    interval: "quarterly",
+    features: [
+      "Standard Features", 
+      "More Storage",
+      "Priority Support"
+    ],
+    isPopular: true
+  },
+  {
+    id: "tier3-quarterly",
+    name: "Tier 3",
+    description: "Premium tier subscription",
+    price: 810,
+    interval: "quarterly",
+    features: [
+      "Premium Features",
+      "Maximum Storage",
+      "24/7 Support"
+    ]
+  }
+];
+
 export const yearlySubscriptionPlans: SubscriptionPlan[] = subscriptionPlans.map(plan => ({
   ...plan,
   id: `${plan.id}-yearly`,
@@ -135,9 +256,12 @@ export const yearlySubscriptionPlans: SubscriptionPlan[] = subscriptionPlans.map
 }));
 
 export const allPlans = [
+  ...minuteSubscriptionPlans,
+  ...hourlySubscriptionPlans,
   ...dailySubscriptionPlans, 
   ...weeklySubscriptionPlans, 
-  ...subscriptionPlans, 
+  ...subscriptionPlans,
+  ...quarterlySubscriptionPlans,
   ...yearlySubscriptionPlans
 ];
 

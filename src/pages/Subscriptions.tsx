@@ -8,23 +8,33 @@ import {
   subscriptionPlans, 
   dailySubscriptionPlans, 
   weeklySubscriptionPlans, 
-  yearlySubscriptionPlans 
+  yearlySubscriptionPlans,
+  minuteSubscriptionPlans,
+  hourlySubscriptionPlans,
+  quarterlySubscriptionPlans
 } from "@/data/mockData";
 import type { SubscriptionPlan } from "@/types/subscription";
+import { SubscriptionFrequency } from "@/types/subscription-sdk";
 
 const Subscriptions = () => {
-  const [selectedPeriod, setSelectedPeriod] = useState<"daily" | "weekly" | "monthly" | "yearly">("monthly");
+  const [selectedPeriod, setSelectedPeriod] = useState<keyof typeof SubscriptionFrequency>("MONTHLY");
   
   // Get the appropriate plans based on the selected period
   const getPlansForPeriod = (): SubscriptionPlan[] => {
     switch (selectedPeriod) {
-      case "daily":
+      case "MINUTE":
+        return minuteSubscriptionPlans;
+      case "HOURLY":
+        return hourlySubscriptionPlans;
+      case "DAILY":
         return dailySubscriptionPlans;
-      case "weekly":
+      case "WEEKLY":
         return weeklySubscriptionPlans;
-      case "monthly":
+      case "MONTHLY":
         return subscriptionPlans;
-      case "yearly":
+      case "QUARTERLY":
+        return quarterlySubscriptionPlans;
+      case "YEARLY":
         return yearlySubscriptionPlans;
       default:
         return subscriptionPlans;
@@ -32,6 +42,11 @@ const Subscriptions = () => {
   };
 
   const currentPlans = getPlansForPeriod();
+
+  // Helper function to display the period in a user-friendly way
+  const formatPeriodDisplay = (period: string): string => {
+    return period.charAt(0) + period.slice(1).toLowerCase();
+  };
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -70,17 +85,20 @@ const Subscriptions = () => {
           {/* Billing Period Selector */}
           <div className="flex justify-center mb-8">
             <Tabs 
-              defaultValue="monthly" 
+              defaultValue="MONTHLY" 
               value={selectedPeriod}
-              onValueChange={(value) => setSelectedPeriod(value as "daily" | "weekly" | "monthly" | "yearly")}
-              className="w-full max-w-md"
+              onValueChange={(value) => setSelectedPeriod(value as keyof typeof SubscriptionFrequency)}
+              className="w-full max-w-4xl overflow-x-auto"
             >
-              <TabsList className="grid grid-cols-4 w-full">
-                <TabsTrigger value="daily">Daily</TabsTrigger>
-                <TabsTrigger value="weekly">Weekly</TabsTrigger>
-                <TabsTrigger value="monthly">Monthly</TabsTrigger>
-                <TabsTrigger value="yearly">
-                  Yearly
+              <TabsList className="grid grid-cols-7 w-full">
+                <TabsTrigger value="MINUTE">{formatPeriodDisplay("MINUTE")}</TabsTrigger>
+                <TabsTrigger value="HOURLY">{formatPeriodDisplay("HOURLY")}</TabsTrigger>
+                <TabsTrigger value="DAILY">{formatPeriodDisplay("DAILY")}</TabsTrigger>
+                <TabsTrigger value="WEEKLY">{formatPeriodDisplay("WEEKLY")}</TabsTrigger>
+                <TabsTrigger value="MONTHLY">{formatPeriodDisplay("MONTHLY")}</TabsTrigger>
+                <TabsTrigger value="QUARTERLY">{formatPeriodDisplay("QUARTERLY")}</TabsTrigger>
+                <TabsTrigger value="YEARLY">
+                  {formatPeriodDisplay("YEARLY")}
                   <span className="ml-1.5 text-xs rounded-full bg-primary/10 px-2 py-0.5">Save 20%</span>
                 </TabsTrigger>
               </TabsList>

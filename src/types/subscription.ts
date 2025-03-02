@@ -4,7 +4,7 @@ export interface SubscriptionPlan {
   name: string;
   description: string;
   price: number;
-  interval: 'daily' | 'weekly' | 'monthly' | 'yearly';
+  interval: 'minute' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'quarterly' | 'yearly';
   features: string[];
   isPopular?: boolean;
 }
