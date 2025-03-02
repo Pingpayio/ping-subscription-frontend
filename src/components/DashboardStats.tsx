@@ -10,19 +10,45 @@ import {
   CreditCard, 
   CalendarDays, 
   CheckCircle,
-  XCircle
+  XCircle,
+  PauseCircle,
+  AlertCircle
 } from "lucide-react";
-import { mockUser } from "@/data/mockData";
-import { getSubscriptionPlan } from "@/data/mockData";
+import { format, parseISO } from "date-fns";
+import { 
+  Subscription, 
+  SubscriptionStatus, 
+  SubscriptionFrequency, 
+  mapFrequencyToDisplay, 
+  mapStatusToColor
+} from "@/types/subscription-sdk";
 
-export function DashboardStats() {
-  // Find active subscription
-  const activeSubscription = mockUser.subscriptions.find(sub => sub.status === 'active');
-  const subscriptionPlan = activeSubscription ? getSubscriptionPlan(activeSubscription.planId) : null;
+interface DashboardStatsProps {
+  subscription?: Subscription;
+}
+
+export function DashboardStats({ subscription }: DashboardStatsProps) {
+  // Function to render the appropriate status icon
+  const renderStatusIcon = (status?: SubscriptionStatus) => {
+    if (!status) return <XCircle className="h-6 w-6 text-muted-foreground" />;
+    
+    switch (status) {
+      case SubscriptionStatus.ACTIVE:
+        return <CheckCircle className="h-6 w-6 text-green-500" />;
+      case SubscriptionStatus.PAUSED:
+        return <PauseCircle className="h-6 w-6 text-amber-500" />;
+      case SubscriptionStatus.CANCELED:
+        return <XCircle className="h-6 w-6 text-muted-foreground" />;
+      case SubscriptionStatus.FAILED:
+        return <AlertCircle className="h-6 w-6 text-destructive" />;
+      default:
+        return <XCircle className="h-6 w-6 text-muted-foreground" />;
+    }
+  };
 
   return (
     <div className="grid gap-4 md:grid-cols-3">
-      {activeSubscription ? (
+      {subscription ? (
         <>
           <Card className="animate-fadeIn hover-lift">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -32,9 +58,11 @@ export function DashboardStats() {
               <CreditCard className="h-6 w-6 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{subscriptionPlan?.name || "Unknown"}</div>
+              <div className="text-2xl font-bold">
+                {parseFloat(subscription.amount).toFixed(2)} NEAR
+              </div>
               <p className="text-xs text-muted-foreground">
-                ${subscriptionPlan?.price || 0}/{subscriptionPlan?.interval}
+                Per {mapFrequencyToDisplay(subscription.frequency)}
               </p>
             </CardContent>
           </Card>
@@ -47,9 +75,13 @@ export function DashboardStats() {
               <CalendarDays className="h-6 w-6 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{activeSubscription.currentPeriodEnd}</div>
+              <div className="text-2xl font-bold">
+                {format(parseISO(subscription.nextPaymentDate), 'MMM d, yyyy')}
+              </div>
               <p className="text-xs text-muted-foreground">
-                {activeSubscription.cancelAtPeriodEnd ? "Cancels after this period" : "Auto-renewal enabled"}
+                {subscription.maxPayments ? 
+                  `${subscription.paymentsMade} of ${subscription.maxPayments} payments made` : 
+                  `${subscription.paymentsMade} payments made so far`}
               </p>
             </CardContent>
           </Card>
@@ -59,10 +91,12 @@ export function DashboardStats() {
               <CardTitle className="text-sm font-medium">
                 Status
               </CardTitle>
-              <CheckCircle className="h-6 w-6 text-green-500" />
+              {renderStatusIcon(subscription.status)}
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">Active</div>
+              <div className={`text-2xl font-bold ${mapStatusToColor(subscription.status)}`}>
+                {subscription.status}
+              </div>
             </CardContent>
           </Card>
         </>
