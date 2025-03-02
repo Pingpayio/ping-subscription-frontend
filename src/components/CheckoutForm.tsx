@@ -1,7 +1,8 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { User, Mail, Wallet, CreditCard, CheckIcon, Calendar } from "lucide-react";
+import { useWalletSelector } from "@near-wallet-selector/react-hook";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -40,9 +41,27 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
   const today = new Date();
   const nextBillingDate = getNextBillingDate(selectedPlan.interval, today);
   
+  const { 
+    signIn,
+    signOut,
+    signedAccountId
+  } = useWalletSelector();
+
+  // Check if wallet is already connected
+  useEffect(() => {
+    if (signedAccountId) {
+      setPaymentMethod("crypto");
+      toast.success(`Wallet connected: ${signedAccountId}`);
+    }
+  }, [signedAccountId]);
+
   const handleConnectWallet = () => {
-    setPaymentMethod("crypto");
-    toast.success("Wallet connected successfully!");
+    try {
+      signIn();
+    } catch (error) {
+      console.error("Error connecting wallet:", error);
+      toast.error("Failed to connect wallet. Please try again.");
+    }
   };
   
   const handleCardPayment = () => {
@@ -270,15 +289,22 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
                     <Wallet className="h-5 w-5 text-primary" />
                     <span className="font-medium">Wallet Connected</span>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-3">Your crypto wallet has been connected successfully.</p>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    {signedAccountId 
+                      ? `Connected account: ${signedAccountId}` 
+                      : "Your crypto wallet has been connected successfully."}
+                  </p>
                   <Button 
                     type="button" 
                     variant="outline" 
                     size="sm" 
-                    onClick={() => setPaymentMethod(null)}
+                    onClick={() => {
+                      signOut();
+                      setPaymentMethod(null);
+                    }}
                     className="border-secondary hover:bg-accent/10"
                   >
-                    Change
+                    Disconnect
                   </Button>
                 </div>
               )}
