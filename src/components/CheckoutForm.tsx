@@ -10,9 +10,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { getNextBillingDate } from "@/data/mockData";
+import { getNextBillingDate, mockMerchant } from "@/data/mockData";
 import { SubscriptionPlan } from "@/types/subscription";
 import { useWalletSelector } from "@near-wallet-selector/react-hook";
+import { SubscriptionSDK } from '@pingpay/subscription-sdk/dist/browser';
+import * as nearAPI from "near-api-js";
 import {
   addDays,
   addMonths,
@@ -48,22 +50,119 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
   const [customDuration, setCustomDuration] = useState<string>("");
   const [showDurationInput, setShowDurationInput] = useState<boolean>(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const { signIn, signOut, signedAccountId, wallet } = useWalletSelector();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      // Create a new SDK instance
+      const sdk = new SubscriptionSDK({
+        apiUrl: 'http://localhost:3000' // Optional, defaults to this value
+      });
+
+      // Calculate frequency in seconds based on the plan interval
+      let frequency = 86400; // Default to daily (86400 seconds)
+      switch (selectedPlan.interval) {
+        case 'minute':
+          frequency = 60;
+          break;
+        case 'hourly':
+          frequency = 3600;
+          break;
+        case 'daily':
+          frequency = 86400;
+          break;
+        case 'weekly':
+          frequency = 604800;
+          break;
+        case 'monthly':
+          frequency = 2592000; // 30 days
+          break;
+        case 'quarterly':
+          frequency = 7776000; // 90 days
+          break;
+        case 'yearly':
+          frequency = 31536000; // 365 days
+          break;
+      }
+
+      // Convert price to yoctoNEAR (1 NEAR = 10^24 yoctoNEAR)
+      const amount = (selectedPlan.price * 1e24).toString();
+      
+      // Set max payments based on duration if specified
+      const maxPayments = maxDuration !== 'no-limit' ? parseInt(maxDuration) : undefined;
+
+      // Create a subscription
+      // const result = await sdk.createSubscription({
+      //   merchantId: mockMerchant.id, // Use the merchant ID from mock data
+      //   amount,
+      //   frequency,
+      //   maxPayments
+      // });
+
+      // if (!result.success || !result.subscriptionId) {
+      //   throw new Error('Failed to create subscription');
+      // }
+
+      // Generate a function call access key for the subscription
+      // Use the total price as the allowance if a duration is selected
+      const allowance = (totalPrice * 1e24).toString(); // Convert to yoctoNEAR
+      const subscriptionId = "1";
+      const { transaction, keyPair } = sdk.createSubscriptionKeyTransaction(
+        signedAccountId!, // Use the connected wallet account
+        subscriptionId,
+        mockMerchant.id,
+        allowance // Use the calculated total price as the allowance
+      );
+
+      // Sign the transaction using the wallet selector
+      try {
+        // Sign and send the transaction
+        const outcome = await wallet.signAndSendTransaction({
+          signerId: signedAccountId!,
+          receiverId: mockMerchant.id,
+          actions: [transaction]
+        });
+
+        if (outcome && outcome.transaction_outcome) {
+          console.log("Transaction succeeded:", outcome);
+          
+          // Only register the key and store the key if the transaction succeeds
+          // Register the key with the contract
+          await sdk.registerSubscriptionKey(
+            subscriptionId,
+            keyPair.publicKey
+          );
+
+          // Store the private key in the TEE
+          await sdk.storeSubscriptionKey(
+            subscriptionId,
+            keyPair.privateKey,
+            keyPair.publicKey
+          );
+
+          setLoading(false);
+          toast.success("Subscription activated successfully!");
+          navigate("/dashboard");
+        } else {
+          throw new Error("Transaction failed");
+        }
+      } catch (txError) {
+        console.error("Transaction error:", txError);
+        setLoading(false);
+        toast.error("Failed to sign transaction. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error creating subscription:", error);
       setLoading(false);
-      toast.success("Subscription activated successfully!");
-      navigate("/dashboard");
-    }, 1500);
+      toast.error("Failed to create subscription. Please try again.");
+    }
   };
 
   const today = new Date();
   const nextBillingDate = getNextBillingDate(selectedPlan.interval, today);
-
-  const { signIn, signOut, signedAccountId } = useWalletSelector();
 
   // Check if wallet is already connected
   useEffect(() => {

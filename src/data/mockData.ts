@@ -266,6 +266,16 @@ export const allPlans = [
 
 const today = new Date();
 
+// Mock merchant data
+export const mockMerchant = {
+  id: "testmerchant.testnet",
+  name: "Test Merchant",
+  ownerId: "testmerchant.testnet",
+  createdAt: format(addMonths(today, -3), 'yyyy-MM-dd'),
+  updatedAt: format(today, 'yyyy-MM-dd'),
+  active: true
+};
+
 export const mockUser: User = {
   id: "user-1",
   name: "Alex Morgan",
