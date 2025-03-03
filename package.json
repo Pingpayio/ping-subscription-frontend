@@ -17,7 +17,7 @@
     "@near-wallet-selector/meteor-wallet": "8.9.15",
     "@near-wallet-selector/my-near-wallet": "8.9.15",
     "@near-wallet-selector/react-hook": "8.9.15",
-    "@pingpay/subscription-sdk": "^0.1.0",
+    "@pingpay/subscription-sdk": "^0.1.2",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-aspect-ratio": "^1.1.0",
