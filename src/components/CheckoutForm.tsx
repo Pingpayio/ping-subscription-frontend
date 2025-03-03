@@ -59,7 +59,7 @@ export function CheckoutForm({ selectedPlan, onBack }: CheckoutFormProps) {
     try {
       // Create a new SDK instance
       const sdk = new SubscriptionSDK({
-        apiUrl: 'http://localhost:3000' // Optional, defaults to this value
+        apiUrl: import.meta.env.VITE_SHADE_AGENT || 'http://localhost:3000' // Optional, defaults to this value
       });
 
       // Calculate frequency in seconds based on the plan interval
