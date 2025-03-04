@@ -19,7 +19,7 @@ export default function Index() {
             <div className="flex flex-col items-center space-y-6 text-center">
               <div className="space-y-4">
                 <h1 className="text-6xl font-bold tracking-tighter sm:text-7xl lg:text-8xl/[1.1] bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 max-w-[15ch] mx-auto">
-                  Secure Automated Reoccurring Payments
+                  Secure Automated Recurring Payments
                 </h1>
                 <p className="mx-auto max-w-[700px] text-muted-foreground text-xl md:text-2xl">
                   Seamless management and payment for subscriptions services.
